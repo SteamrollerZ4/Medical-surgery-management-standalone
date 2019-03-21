@@ -65,7 +65,6 @@ public class Billing{
 	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
 	        ResultSet rs = stmt.executeQuery(query);
 	        
-	        
 	        while(rs.next()) 
 	        {
 	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
