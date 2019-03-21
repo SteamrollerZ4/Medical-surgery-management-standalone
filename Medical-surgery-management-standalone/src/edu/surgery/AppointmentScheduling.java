@@ -71,6 +71,9 @@ public class AppointmentScheduling
     }
     
     //Cancel an appointment on db
+    /*
+     * Cancellation are only allowed at least T hours before appointment otherwise client is still billed. 
+    */
     public static void cancelAppointment(Connection conn, Appointment appointment)
     {
     //delete appointment in db

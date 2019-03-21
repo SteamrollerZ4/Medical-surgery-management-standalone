@@ -4,11 +4,16 @@ import java.sql.*;
 import java.time.*;
 import java.math.BigDecimal;
 
+/*
+ * This class is a singleton
+ * */
+
 public class MedicalSurgeryManager
 {
 
     private static Connection conn = null;
     
+    //Return a connection to client
     public static Connection getConnection(){
         if(conn!=null)
             return conn;
@@ -42,11 +47,6 @@ public class MedicalSurgeryManager
         Appointment app = (Appointment) AppointmentScheduling.getAppointments(getConnection())[0];
 //        Bill bill = new Bill(app.getDate().toLocalDate().atTime(app.getTime().toLocalTime()), 1 ,1 ,2, "10");
 //        Billing.recordBill(app, bill);
-        
-         for(Object o : Billing.getBillsByDoctorId(1)) 
-         {
-        	 System.out.println(((Bill) o).getAmount());
-         }
-         
+//        System.out.println(Billing.getTotalBill(1));
     }
 }
