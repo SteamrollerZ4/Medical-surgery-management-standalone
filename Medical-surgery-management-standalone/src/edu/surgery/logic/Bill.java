@@ -1,4 +1,4 @@
-package edu.surgery;
+package edu.surgery.logic;
 
 import java.time.LocalDateTime;
 import java.math.BigDecimal;//For accurate representation of currency values

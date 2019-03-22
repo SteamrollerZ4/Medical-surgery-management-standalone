@@ -1,4 +1,4 @@
-package edu.surgery;
+package edu.surgery.logic;
 
 public class Registration
 {
