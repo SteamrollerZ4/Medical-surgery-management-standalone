@@ -6,16 +6,18 @@ import java.sql.Statement;
 public class Registration
 {    
     //Enter doctor user entry into login table
-    public static void createUser(Doctor doctor) {
+    public static void createUser(Doctor doctor, String password) {
     	StringBuilder sb = new StringBuilder("doc");
     	sb.append(doctor.getDoctorId());
     	sb.append("med");
     	
-    	String password = "";
+    	//Hash password using MD5 algorithm
+    	String passwordHash = Cryptography.getMd5(password);
     	
     	try {
 	    	//insert user into table
-	        String query = "INSERT INTO login (userId, passwordHash) VALUES ("+ "'"+sb.toString()+"','"+password+"')";
+	        String query = "INSERT INTO login (userId, passwordHash) VALUES ('"+
+	    	sb.toString()+"','"+passwordHash+"')";
 	        
 	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
 	        stmt.executeUpdate(query);
