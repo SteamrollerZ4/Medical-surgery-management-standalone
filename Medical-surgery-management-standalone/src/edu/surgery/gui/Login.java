@@ -1,5 +1,8 @@
 package edu.surgery.gui;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import edu.surgery.logic.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -71,7 +74,12 @@ public class Login extends Application {
 	
 	public static void main(String args[]) 
 	{
-		launch(args);
+		//launch(args);
+		Patient patient = new Patient("Paul", "Ndlovu", "08-572685165P07", LocalDate.of(1991, Month.APRIL, 12),"0774956786",
+				"99-47962", "paul@gmail.com", "facebook.com/paulndlovu", "tweeter.com/paulndlovu", 
+				"23 Clivellend rd","Bulawayo","Zimbabwe");
+		
+		Registration.createUser(patient,"hello");
 	}
 
 }

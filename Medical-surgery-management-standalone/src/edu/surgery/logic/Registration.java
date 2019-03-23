@@ -26,8 +26,25 @@ public class Registration
 			System.out.println(e);
 		}
     }
-    public static void createUser(Patient patient) {
+    public static void createUser(Patient patient, String password) {
+    	StringBuilder sb = new StringBuilder("pat");
+    	sb.append(patient.getPatientId());
+    	sb.append("med");
     	
+    	//Hash password using MD5 algorithm
+    	String passwordHash = Cryptography.getMd5(password);
+    	
+    	try {
+	    	//insert user into table
+	        String query = "INSERT INTO login (userId, passwordHash) VALUES ('"+
+	    	sb.toString()+"','"+passwordHash+"')";
+	        
+	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+	        stmt.executeUpdate(query);
+	        }
+    	catch (SQLException e) {
+			System.out.println(e);
+		}
     }    
     public static void createUser(Receptionist receptionist) {
     	
@@ -45,7 +62,7 @@ public class Registration
     }
     
     //Insert entry into doctor table
-    public void createDoctor(Doctor doctor) 
+    public static void createDoctor(Doctor doctor) 
     {
         try{
             String query = "INSERT INTO doctor (doctorName, doctorSurname, doctorNationalId ,doctorDOB, doctorCell, "
@@ -63,7 +80,7 @@ public class Registration
         }
     }
     //Insert entry into patient table
-    public void createPatient(Patient patient) 
+    public static void createPatient(Patient patient) 
     {
         try{
             String query = "INSERT INTO patient (patientName, patientSurname, patientNationalId ,patientDOB, patientCell, "
