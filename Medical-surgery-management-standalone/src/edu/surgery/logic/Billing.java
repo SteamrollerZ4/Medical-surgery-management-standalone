@@ -6,10 +6,9 @@ import java.sql.*;
 import java.math.BigDecimal;
 
 public class Billing{
-
+	//insert bill entry into bill table
     public static void recordBill(Appointment appointment, Bill bill){
          try{
-            //insert appointment into db
             String query = "INSERT INTO bill (billDate, billTime, doctorId ,patientId, appointmentId, billAmount) VALUES ("+ "'"+appointment.getDate()+"','"+appointment.getTime()+"','"+appointment.getDoctorId()+"',"+"'"+appointment.getPatientId()+"','"+appointment.getAppointmentId()+"','"+bill.getAmount() +"')";
             
             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
