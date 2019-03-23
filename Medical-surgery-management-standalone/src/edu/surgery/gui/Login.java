@@ -74,12 +74,9 @@ public class Login extends Application {
 	
 	public static void main(String args[]) 
 	{
-		//launch(args);
-		Patient patient = new Patient("Paul", "Ndlovu", "08-572685165P07", LocalDate.of(1991, Month.APRIL, 12),"0774956786",
-				"99-47962", "paul@gmail.com", "facebook.com/paulndlovu", "tweeter.com/paulndlovu", 
-				"23 Clivellend rd","Bulawayo","Zimbabwe");
-		
-		Registration.createUser(patient,"hello");
+//		launch(args);
+		String output =  (Registration.checkIfAvailabe("pat1med")) ? "Available" : "Taken";
+		System.out.println(output);
 	}
 
 }

@@ -1,23 +1,25 @@
 package edu.surgery.logic;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Registration
 {    
     //Enter doctor user entry into login table
-    public static void createUser(Doctor doctor, String password) {
-    	StringBuilder sb = new StringBuilder("doc");
-    	sb.append(doctor.getDoctorId());
-    	sb.append("med");
+    public static void createUser(String username ,String password) {
+    	
+    	if(!checkIfAvailabe(username))
+    		return;
     	
     	//Hash password using MD5 algorithm
     	String passwordHash = Cryptography.getMd5(password);
     	
+    	
     	try {
 	    	//insert user into table
-	        String query = "INSERT INTO login (userId, passwordHash) VALUES ('"+
-	    	sb.toString()+"','"+passwordHash+"')";
+	        String query = "INSERT INTO login (userId, passwordHash) VALUES ('"+username+"','"+passwordHash+"')";
 	        
 	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
 	        stmt.executeUpdate(query);
@@ -26,28 +28,27 @@ public class Registration
 			System.out.println(e);
 		}
     }
-    public static void createUser(Patient patient, String password) {
-    	StringBuilder sb = new StringBuilder("pat");
-    	sb.append(patient.getPatientId());
-    	sb.append("med");
-    	
-    	//Hash password using MD5 algorithm
-    	String passwordHash = Cryptography.getMd5(password);
-    	
-    	try {
-	    	//insert user into table
-	        String query = "INSERT INTO login (userId, passwordHash) VALUES ('"+
-	    	sb.toString()+"','"+passwordHash+"')";
-	        
-	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
-	        stmt.executeUpdate(query);
-	        }
-    	catch (SQLException e) {
-			System.out.println(e);
-		}
-    }    
-    public static void createUser(Receptionist receptionist) {
-    	
+
+    
+    //Checks if user name is available
+    public static boolean checkIfAvailabe(String username) 
+    {
+    	 try{
+             String query = "SELECT * FROM login where userId = '"+username+"'";
+             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+             ResultSet rs = stmt.executeQuery(query);             
+             
+             if(rs.next())
+             {
+            	 return false;
+             }
+             
+         }
+         catch(SQLException e)
+         {
+             System.out.println(e);
+         }
+    	 return true;
     }
     
     //Used when patient doesn't know their id
