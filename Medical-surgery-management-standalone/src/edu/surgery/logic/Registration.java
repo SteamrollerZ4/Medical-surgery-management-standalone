@@ -1,6 +1,5 @@
 package edu.surgery.logic;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,6 +9,7 @@ public class Registration
     //Enter doctor user entry into login table
     public static void createUser(String username ,String password) {
     	
+    	//If the selected username isn't available return
     	if(!checkIfAvailabe(username))
     		return;
     	
