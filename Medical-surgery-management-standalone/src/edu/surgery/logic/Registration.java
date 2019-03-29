@@ -6,16 +6,48 @@ import java.sql.Statement;
 
 public class Registration
 {    
+	
+	public static boolean userLogin(String username ,String password)
+	{
+		try {
+			if(checkIfAvailabe(username))//If specified user does exist, throw exception
+	    		throw new UserNotFound();
+			
+			//Select password hash
+			String query = "SELECT type from login where userId = '"+username+"' AND passwordHash = " +Cryptography.getMd5(password)+"'";
+			Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()) {
+            	if (rs.next()) 
+            	{
+            		String type = rs.getString("type");
+            		return true;
+            	}
+            	else
+            		throw new PasswordWrong();
+        	}
+			
+		}catch(UserNotFound e) {
+			System.out.println(e);
+		}
+		catch (PasswordWrong e) {
+			System.out.println(e);
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+		}
+
+	return false;
+	}
+	
     //Enter doctor user entry into login table
-    public static void createUser(String username ,String password) {
-    	
+    public static void createUser(String username ,String password) {    	
     	//If the selected username isn't available return
     	if(!checkIfAvailabe(username))
     		return;
     	
     	//Hash password using MD5 algorithm
-    	String passwordHash = Cryptography.getMd5(password);
-    	
+    	String passwordHash = Cryptography.getMd5(password);    	
     	
     	try {
 	    	//insert user into table
@@ -80,6 +112,7 @@ public class Registration
             System.out.println(e);
         }
     }
+    
     //Insert entry into patient table
     public static void createPatient(Patient patient) 
     {
