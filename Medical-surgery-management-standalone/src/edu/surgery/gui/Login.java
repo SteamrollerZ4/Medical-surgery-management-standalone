@@ -33,27 +33,93 @@ public class Login extends Application {
 	{
 		launch(args);
 	}
+	private String currentUser;
 	
 	@FXML private Label lb_status;
 	@FXML private TextField tf_user;
 	@FXML private TextField tf_pass;	
-
+	@FXML private TextField tf_pass_ori;
+	@FXML private TextField tf_pass_con;
+	@FXML private TextField tf_name;
+	@FXML private TextField tf_surname;
+	@FXML private TextField tf_nationalId;
+	@FXML private DatePicker dp_dob;
+	@FXML private TextField tf_cell;
+	@FXML private TextField tf_tel;
+	@FXML private TextField tf_email;
+	@FXML private TextField tf_fb;
+	@FXML private TextField tf_tweeter;
+	@FXML private TextField tf_address;
+	@FXML private TextField tf_city;
+	@FXML private TextField tf_country;
+	@FXML private ChoiceBox<String> cb_type;
+	
+	public void signup(ActionEvent action)
+	{
+		switch(cb_type.getValue()) 
+		{
+			case "Doctor":
+				Doctor doc = new Doctor(tf_name.getText(), 
+						tf_surname.getText(), 
+						tf_nationalId.getText(), 
+						dp_dob.getValue(), 
+						tf_cell.getText(), 
+						tf_tel.getText(), 
+						tf_email.getText(), 
+						tf_fb.getText(), 
+						tf_tweeter.getText(), 
+						tf_address.getText(), 
+						tf_city.getText(), 
+						tf_country.getText(),
+						tf_user.getText());
+				createDoctor(doc);
+				break;
+			case "Receptionist":
+				Receptionist rec = new Receptionist(tf_name.getText(), 
+						tf_surname.getText(), 
+						tf_nationalId.getText(), 
+						dp_dob.getValue(), 
+						tf_cell.getText(), 
+						tf_tel.getText(), 
+						tf_email.getText(), 
+						tf_fb.getText(), 
+						tf_tweeter.getText(), 
+						tf_address.getText(), 
+						tf_city.getText(), 
+						tf_country.getText(),
+						tf_user.getText());
+				createReceptionist(rec);
+				break;
+			case "Patient":
+				Patient pat = new Patient(tf_name.getText(), 
+						tf_surname.getText(), 
+						tf_nationalId.getText(), 
+						dp_dob.getValue(), 
+						tf_cell.getText(), 
+						tf_tel.getText(), 
+						tf_email.getText(), 
+						tf_fb.getText(), 
+						tf_tweeter.getText(), 
+						tf_address.getText(), 
+						tf_city.getText(), 
+						tf_country.getText(),
+						tf_user.getText());
+				createPatient(pat);
+				break;			
+		}
+	}
 	
 	public void signin(ActionEvent action)
 	{
-		switch(userLogin(tf_user.getText(), tf_pass.getText())){
-		case "doc":
+		if(userLogin(tf_user.getText(), tf_pass.getText())){
+			currentUser=tf_user.getText();
 			lb_status.setText("login successful");
-			break;
-		case "pat":
-			lb_status.setText("login successful");
-			break;
-		default:
+		}else {
 			lb_status.setText("login failed");
 		}		
 	}
 	
-	public static String userLogin(String username ,String password)
+	public static boolean userLogin(String username ,String password)
 	{
 		try {
 			if(Registration.checkIfAvailabe(username))//If specified user does exist, throw exception
@@ -71,6 +137,7 @@ public class Login extends Application {
             		}else {
             			//show account creation form i.e. NewUser.fxml
             		}
+            		return true;
             	}
             	else
             		throw new PasswordWrong();
@@ -86,7 +153,7 @@ public class Login extends Application {
 			System.out.println(e);
 		}
 
-	return null;
+	return false;
 	}
 	
 	public static boolean doesUserHaveAcc(String username) {
@@ -111,6 +178,25 @@ public class Login extends Application {
          System.out.println(e);
      }
 		return false;
+	}
+	
+	//Insert entry into receptionist table
+	public static void createReceptionist(Receptionist receptionist) 
+	{
+		 try{
+	            String query = "INSERT INTO receptionist (receptionistName, receptionistSurname, receptionistNationalId ,receptionistDOB, receptionistCell, "
+	            		+ "receptionistTel, receptionistEmail, receptionistFacebook, receptionistTweeter, receptionistAddress, receptionistCity, receptionistCountry) VALUES ("+
+	            		"'"+receptionist.getReceptionistName()+"','"+receptionist.getReceptionistSurname()+"','"+receptionist.getReceptionistNationalId()+"',"+
+	            		"'"+receptionist.getReceptionistDOB()+"','"+receptionist.getReceptionistCell()+"','"+receptionist.getReceptionistTel() +"','"+receptionist.getReceptionistEmail() +
+	            		"','"+receptionist.getReceptionistFacebook() +"','"+receptionist.getReceptionistTweeter()+"','"+receptionist.getReceptionistAddress() +
+	            		"','"+receptionist.getReceptionistCity() +"','"+receptionist.getReceptionistCountry() +"')";
+	            
+	            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+	            stmt.executeUpdate(query);
+	        }
+	        catch(SQLException e){
+	            System.out.println(e);
+	        }
 	}
 	
 	//Insert entry into doctor table

@@ -17,12 +17,13 @@ public class Patient
     private String patientAddress;
     private String patientCity;
     private String patientCountry;
+    private String username;
     
     public Patient(String patientName,String patientSurname ,String patientNationalId, LocalDate patientDOB, String patientCell,
                     String patientTel, String patientEmail, String patientFacebook, String patientTweeter, String patientAddress, 
-                    String patientCity, String patientCountry)
+                    String patientCity, String patientCountry, String username)
     {
-    	this(patientName, patientSurname, patientNationalId, patientDOB, patientCell, patientAddress, patientCity, patientCountry);        
+    	this(patientName, patientSurname, patientNationalId, patientDOB, patientCell, patientAddress, patientCity, patientCountry, username);        
         
         this.patientTel = patientTel;
         this.patientEmail = patientEmail;
@@ -35,22 +36,21 @@ public class Patient
     
     //Used to register a new patient
     public Patient(String patientName,String patientSurname ,String patientNationalId, LocalDate patientDOB, String patientCell,
-                    String patientAddress, String patientCity, String patientCountry)
+                    String patientAddress, String patientCity, String patientCountry, String username)
     {
         this.patientName = patientName;
         this.patientSurname = patientSurname;
         this.patientNationalId = patientNationalId;
         this.patientDOB = patientDOB;
-        this.patientCell = patientCell;
-        
+        this.patientCell = patientCell;        
         this.patientTel = "unknown";
         this.patientEmail = "unknown";
         this.patientFacebook = "unknown";
-        this.patientTweeter = "unknown";
-        
+        this.patientTweeter = "unknown";        
         this.patientAddress = patientAddress;
         this.patientCity = patientCity;
         this.patientCountry = patientCountry;
+        this.username = username;
     }
     
     //Setter

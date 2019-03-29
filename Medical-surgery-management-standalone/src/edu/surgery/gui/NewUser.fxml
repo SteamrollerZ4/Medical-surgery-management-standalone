@@ -17,14 +17,6 @@
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="0"/>
 		
-	<Label text="username:"
-		GridPane.rowIndex="1"
-		GridPane.columnIndex="0"/>
-	
-	<TextField fx:id="tf_user"
-		GridPane.rowIndex="1"
-		GridPane.columnIndex="1"/>
-	
 	<Label  text="password"
 		GridPane.rowIndex="2"
 		GridPane.columnIndex="0"/>
@@ -40,122 +32,6 @@
 	<TextField  fx:id="tf_pass_con"
 		GridPane.rowIndex="3"
 		GridPane.columnIndex="1"/>
-
-	<Label text="name:"
-		GridPane.rowIndex="4"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_name"
-		GridPane.rowIndex="4"
-		GridPane.columnIndex="1"/>		
-		
-	<Label text="surname:"
-		GridPane.rowIndex="5"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_surname"
-		GridPane.rowIndex="5"
-		GridPane.columnIndex="1"/>
-
-	<Label text="nationalId"
-		GridPane.rowIndex="6"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_nationalId"
-		GridPane.rowIndex="6"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="date of birth:"
-		GridPane.rowIndex="7"
-		GridPane.columnIndex="0"/>
-		
-	<DatePicker fx:id="dp_dob"
-		GridPane.rowIndex="7"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="cell"
-		GridPane.rowIndex="8"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_cell"
-		GridPane.rowIndex="8"
-		GridPane.columnIndex="1"/>
-
-	<Label text="tel"
-		GridPane.rowIndex="9"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_tel"
-		GridPane.rowIndex="9"
-		GridPane.columnIndex="1"/>		
-		
-	<Label text="email"
-		GridPane.rowIndex="10"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_email"
-		GridPane.rowIndex="10"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="fb"
-		GridPane.rowIndex="11"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_fb"
-		GridPane.rowIndex="11"
-		GridPane.columnIndex="1"/>
-
-	<Label text="tweeter"
-		GridPane.rowIndex="12"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_tweeter"
-		GridPane.rowIndex="12"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="address"
-		GridPane.rowIndex="13"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_address"
-		GridPane.rowIndex="13"
-		GridPane.columnIndex="1"/>
-	
-	<Label text="city"
-		GridPane.rowIndex="14"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_city"
-		GridPane.rowIndex="14"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="country:"
-		GridPane.rowIndex="15"
-		GridPane.columnIndex="0"/>
-		
-	<TextField  fx:id="tf_country"
-		GridPane.rowIndex="15"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="user type:"
-		GridPane.rowIndex="16"
-		GridPane.columnIndex="0"/>
-		
-	<ChoiceBox
-		fx:id="cb_type"
-		value="Doctor"
-		GridPane.rowIndex="16"
-		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT">
-	    <items>
-	        <FXCollections fx:id="options"
-	        	fx:factory="observableArrayList">
-	            <String fx:value="Doctor" />
-	            <String fx:value="Patient" />
-	            <String fx:value="Receptionist"/>
-	        </FXCollections>
-	    </items>
-	</ChoiceBox>
 		
 	<Button text="create user"
 		GridPane.rowIndex="17"

@@ -17,9 +17,10 @@ public class Doctor
     private String doctorAddress;
     private String doctorCity;
     private String doctorCountry;
+    private String username;
     
     public Doctor(String doctorName, String doctorSurname, String doctorNationalId, LocalDate doctorDOB, String doctorCell,String doctorAddress,
-    		String doctorCity, String doctorCountry)
+    		String doctorCity, String doctorCountry,String username)
     {
         this.doctorName = doctorName;
         this.doctorSurname = doctorSurname;
@@ -33,13 +34,14 @@ public class Doctor
         this.doctorAddress = doctorAddress;
         this.doctorCity = doctorCity;
         this.doctorCountry = doctorCountry;
+        this.username = username;
     }
     
     public Doctor(String doctorName, String doctorSurname, String doctorNationalId, LocalDate doctorDOB,
     		String doctorCell, String doctorTel, String doctorEmail, String doctorFacebook, 
-    		String doctorTweeter, String doctorAddress, String doctorCity, String doctorCountry)
+    		String doctorTweeter, String doctorAddress, String doctorCity, String doctorCountry,String username)
     {
-        this(doctorName, doctorSurname, doctorNationalId, doctorDOB, doctorCell, doctorAddress,doctorCity, doctorCountry);
+        this(doctorName, doctorSurname, doctorNationalId, doctorDOB, doctorCell, doctorAddress,doctorCity, doctorCountry,username);
         
         this.doctorTel = doctorTel;
         this.doctorEmail = doctorEmail;

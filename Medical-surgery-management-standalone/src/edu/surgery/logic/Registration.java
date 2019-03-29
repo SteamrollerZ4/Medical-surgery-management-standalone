@@ -12,21 +12,6 @@ import javafx.scene.control.TextField;
 public class Registration
 {    
 	
-	@FXML private Label lb_status;
-	@FXML private TextField tf_pass_ori;
-	@FXML private TextField tf_pass_con;
-	@FXML private TextField tf_name;
-	@FXML private TextField tf_surname;
-	@FXML private TextField tf_nationalId;
-	@FXML private DatePicker dp_dob;
-	@FXML private TextField tf_cell;
-	@FXML private TextField tf_tel;
-	@FXML private TextField tf_email;
-	@FXML private TextField tf_fb;
-	@FXML private TextField tf_tweeter;
-	@FXML private TextField tf_address;
-	@FXML private TextField tf_city;
-	@FXML private TextField tf_country;
 	
 	
     //Enter doctor,patient or receptionist user entry into login table
