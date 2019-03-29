@@ -35,13 +35,11 @@
 		GridPane.columnIndex="1"
 		/>
 		
-		
 	<Button text="signin"
 		GridPane.rowIndex="3"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT">
-		onAction="#login"
-	</Button>
+		GridPane.halignment="RIGHT"
+		onAction="#signin"/>
 		
 </GridPane>
 

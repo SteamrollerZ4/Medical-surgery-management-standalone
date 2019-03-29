@@ -4,44 +4,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
 public class Registration
 {    
 	
-	public static boolean userLogin(String username ,String password)
-	{
-		try {
-			if(checkIfAvailabe(username))//If specified user does exist, throw exception
-	    		throw new UserNotFound();
-			
-			//Select password hash
-			String query = "SELECT type from login where userId = '"+username+"' AND passwordHash = " +Cryptography.getMd5(password)+"'";
-			Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()) {
-            	if (rs.next()) 
-            	{
-            		String type = rs.getString("type");
-            		return true;
-            	}
-            	else
-            		throw new PasswordWrong();
-        	}
-			
-		}catch(UserNotFound e) {
-			System.out.println(e);
-		}
-		catch (PasswordWrong e) {
-			System.out.println(e);
-		}
-		catch (SQLException e) {
-			System.out.println(e);
-		}
-
-	return false;
-	}
+	@FXML private Label lb_status;
+	@FXML private TextField tf_pass_ori;
+	@FXML private TextField tf_pass_con;
+	@FXML private TextField tf_name;
+	@FXML private TextField tf_surname;
+	@FXML private TextField tf_nationalId;
+	@FXML private DatePicker dp_dob;
+	@FXML private TextField tf_cell;
+	@FXML private TextField tf_tel;
+	@FXML private TextField tf_email;
+	@FXML private TextField tf_fb;
+	@FXML private TextField tf_tweeter;
+	@FXML private TextField tf_address;
+	@FXML private TextField tf_city;
+	@FXML private TextField tf_country;
 	
-    //Enter doctor user entry into login table
-    public static void createUser(String username ,String password) {    	
+	
+    //Enter doctor,patient or receptionist user entry into login table
+    public static void createUserameAndPass(String username ,String password) {	
     	//If the selected username isn't available return
     	if(!checkIfAvailabe(username))
     		return;
@@ -94,41 +83,5 @@ public class Registration
     	return new int[] {};
     }
     
-    //Insert entry into doctor table
-    public static void createDoctor(Doctor doctor) 
-    {
-        try{
-            String query = "INSERT INTO doctor (doctorName, doctorSurname, doctorNationalId ,doctorDOB, doctorCell, "
-            		+ "doctorTel, doctorEmail, doctorFacebook, doctorTweeter, doctorAddress, doctorCity, doctorCountry) VALUES ("+
-            		"'"+doctor.getDoctorName()+"','"+doctor.getDoctorSurname()+"','"+doctor.getDoctorNationalId()+"',"+
-            		"'"+doctor.getDoctorDOB()+"','"+doctor.getDoctorCell()+"','"+doctor.getDoctorTel() +"','"+doctor.getDoctorEmail() +
-            		"','"+doctor.getDoctorFacebook() +"','"+doctor.getDoctorTweeter()+"','"+doctor.getDoctorAddress() +
-            		"','"+doctor.getDoctorCity() +"','"+doctor.getDoctorCountry() +"')";
-            
-            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
-            stmt.executeUpdate(query);
-        }
-        catch(SQLException e){
-            System.out.println(e);
-        }
-    }
     
-    //Insert entry into patient table
-    public static void createPatient(Patient patient) 
-    {
-        try{
-            String query = "INSERT INTO patient (patientName, patientSurname, patientNationalId ,patientDOB, patientCell, "
-            		+ "patientTel, patientEmail, patientFacebook, patientTweeter, patientAddress, patientCity, patientCountry) VALUES ("+ 
-        "'"+patient.getPatientName()+"','"+patient.getPatientSurname()+"','"+patient.getPatientNationalId()+"',"+"'"+patient.getPatientDOB()+
-        "','"+patient.getPatientCell()+"','"+patient.getPatientTel() +"','"+patient.getPatientEmail() +"','"+patient.getPatientFacebook() 
-        +"','"+patient.getPatientTweeter() +"','"+patient.getPatientAddress() +"','"+patient.getPatientCity() +"','"+patient.getPatientCountry() 
-        +"')";
-            
-            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
-            stmt.executeUpdate(query);
-        }
-        catch(SQLException e){
-            System.out.println(e);
-        }
-    }
 }
