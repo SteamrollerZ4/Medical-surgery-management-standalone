@@ -71,5 +71,5 @@ public class Patient
 	public String getPatientId() {		return patientId;	}
 	public String getPatientCity() {		return patientCity;	}
 	public String getPatientCountry() {		return patientCountry;	}
-
+	public String getUsername() {return username;}
 }

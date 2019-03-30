@@ -19,21 +19,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class Login extends Application {
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-
-		primaryStage.setTitle("Login");
-		primaryStage.setScene(new Scene(root,300,275));
-		primaryStage.show();
-	}
-	
-	public static void main(String args[]) 
-	{
-		launch(args);
-	}
-	private String currentUser;
+public class GUI extends Application {
+	private	static Stage window;
+	private static String currentUser;
 	
 	@FXML private Label lb_status;
 	@FXML private TextField tf_user;
@@ -53,13 +41,46 @@ public class Login extends Application {
 	@FXML private TextField tf_city;
 	@FXML private TextField tf_country;
 	@FXML private ChoiceBox<String> cb_type;
+	@FXML private TextField tf_username;
+
+	
+	public static Stage getWindow() 
+	{
+		return window;
+	}
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		window = primaryStage;
+		window.setTitle("Login");
+		window.setScene(new Scene(root,300,275));
+		window.show();
+	}
+	
+	public static void main(String args[]) 
+	{
+		launch(args);
+	}
+	
 	
 	public void signup(ActionEvent action)
 	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("NewUser.fxml"));
+			window.setTitle("Create user");
+			window.setScene(new Scene(root,720,560));
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public void create(ActionEvent action) {		
 		switch(cb_type.getValue()) 
 		{
 			case "Doctor":
-				Doctor doc = new Doctor(tf_name.getText(), 
+				Doctor doc = new Doctor(
+						tf_name.getText(), 
 						tf_surname.getText(), 
 						tf_nationalId.getText(), 
 						dp_dob.getValue(), 
@@ -71,11 +92,12 @@ public class Login extends Application {
 						tf_address.getText(), 
 						tf_city.getText(), 
 						tf_country.getText(),
-						tf_user.getText());
+						currentUser);
 				createDoctor(doc);
 				break;
 			case "Receptionist":
-				Receptionist rec = new Receptionist(tf_name.getText(), 
+				Receptionist rec = new Receptionist(
+						tf_name.getText(), 
 						tf_surname.getText(), 
 						tf_nationalId.getText(), 
 						dp_dob.getValue(), 
@@ -87,7 +109,7 @@ public class Login extends Application {
 						tf_address.getText(), 
 						tf_city.getText(), 
 						tf_country.getText(),
-						tf_user.getText());
+						currentUser);
 				createReceptionist(rec);
 				break;
 			case "Patient":
@@ -103,7 +125,7 @@ public class Login extends Application {
 						tf_address.getText(), 
 						tf_city.getText(), 
 						tf_country.getText(),
-						tf_user.getText());
+						currentUser);
 				createPatient(pat);
 				break;			
 		}
@@ -204,11 +226,11 @@ public class Login extends Application {
     {
         try{
             String query = "INSERT INTO doctor (doctorName, doctorSurname, doctorNationalId ,doctorDOB, doctorCell, "
-            		+ "doctorTel, doctorEmail, doctorFacebook, doctorTweeter, doctorAddress, doctorCity, doctorCountry) VALUES ("+
+            		+ "doctorTel, doctorEmail, doctorFacebook, doctorTweeter, doctorAddress, doctorCity, doctorCountry, username) VALUES ("+
             		"'"+doctor.getDoctorName()+"','"+doctor.getDoctorSurname()+"','"+doctor.getDoctorNationalId()+"',"+
             		"'"+doctor.getDoctorDOB()+"','"+doctor.getDoctorCell()+"','"+doctor.getDoctorTel() +"','"+doctor.getDoctorEmail() +
             		"','"+doctor.getDoctorFacebook() +"','"+doctor.getDoctorTweeter()+"','"+doctor.getDoctorAddress() +
-            		"','"+doctor.getDoctorCity() +"','"+doctor.getDoctorCountry() +"')";
+            		"','"+doctor.getDoctorCity() +"','"+doctor.getDoctorCountry() +"','"+doctor.getUsername() +"')";
             
             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
             stmt.executeUpdate(query);
@@ -223,11 +245,11 @@ public class Login extends Application {
     {
         try{
             String query = "INSERT INTO patient (patientName, patientSurname, patientNationalId ,patientDOB, patientCell, "
-            		+ "patientTel, patientEmail, patientFacebook, patientTweeter, patientAddress, patientCity, patientCountry) VALUES ("+ 
+            		+ "patientTel, patientEmail, patientFacebook, patientTweeter, patientAddress, patientCity, patientCountry, username) VALUES ("+ 
         "'"+patient.getPatientName()+"','"+patient.getPatientSurname()+"','"+patient.getPatientNationalId()+"',"+"'"+patient.getPatientDOB()+
         "','"+patient.getPatientCell()+"','"+patient.getPatientTel() +"','"+patient.getPatientEmail() +"','"+patient.getPatientFacebook() 
         +"','"+patient.getPatientTweeter() +"','"+patient.getPatientAddress() +"','"+patient.getPatientCity() +"','"+patient.getPatientCountry() 
-        +"')";
+        +"','"+patient.getUsername()+"')";
             
             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
             stmt.executeUpdate(query);
@@ -236,4 +258,22 @@ public class Login extends Application {
             System.out.println(e);
         }
     }
+    
+	public void createUP(ActionEvent actionEvent) 
+	{
+		if(tf_pass_ori.getText().equals(tf_pass_ori.getText())) {
+			if(!Registration.createUserameAndPass(tf_username.getText(),  tf_pass_ori.getText()))
+				return;
+			
+			try {
+				currentUser = tf_username.getText();
+				Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
+				window.setTitle("Capture user details");
+				window.setScene(new Scene(root,720,560));
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+	    	
+		}
+	}
 }

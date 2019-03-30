@@ -1,24 +1,27 @@
 package edu.surgery.logic;
 
+import edu.surgery.gui.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import edu.surgery.gui.GUI;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class Registration
-{    
-	
-	
-	
+{    	
     //Enter doctor,patient or receptionist user entry into login table
-    public static void createUserameAndPass(String username ,String password) {	
+    public static boolean createUserameAndPass(String username ,String password) {	
     	//If the selected username isn't available return
     	if(!checkIfAvailabe(username))
-    		return;
+    		return false;
     	
     	//Hash password using MD5 algorithm
     	String passwordHash = Cryptography.getMd5(password);    	
@@ -29,10 +32,12 @@ public class Registration
 	        
 	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
 	        stmt.executeUpdate(query);
+	        return true;
 	        }
     	catch (SQLException e) {
 			System.out.println(e);
 		}
+    	return false;
     }
 
     

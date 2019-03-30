@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="edu.surgery.logic.Registration"
+		fx:controller="edu.surgery.gui.GUI"
 		alignment="CENTER"
 		hgap="10"
 		vgap="10">
@@ -16,28 +16,34 @@
 		GridPane.halignment="CENTER"
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="0"/>
+
+	<Label  text="username"
+		GridPane.rowIndex="1"
+		GridPane.columnIndex="0"/>		
+	<TextField  fx:id="tf_username"
+		GridPane.rowIndex="1"
+		GridPane.columnIndex="1"/>
 		
 	<Label  text="password"
 		GridPane.rowIndex="2"
-		GridPane.columnIndex="0"/>
-		
+		GridPane.columnIndex="0"/>		
 	<TextField  fx:id="tf_pass_ori"
 		GridPane.rowIndex="2"
 		GridPane.columnIndex="1"/>
 		
 	<Label text="password confirm"
 		GridPane.rowIndex="3"
-		GridPane.columnIndex="0"/>
-		
+		GridPane.columnIndex="0"/>		
 	<TextField  fx:id="tf_pass_con"
 		GridPane.rowIndex="3"
 		GridPane.columnIndex="1"/>
 		
 	<Button text="create user"
-		GridPane.rowIndex="17"
+		GridPane.rowIndex="4"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"
-		onAction="#signin"/>
+		onAction="#createUP"
+		/>
 
 </GridPane>
 

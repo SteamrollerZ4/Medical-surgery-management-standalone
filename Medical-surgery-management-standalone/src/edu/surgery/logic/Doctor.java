@@ -69,6 +69,7 @@ public class Doctor
 	public String getDoctorAddress() {		return doctorAddress;	}
 	public String getDoctorCity() {	return doctorCity;	}
 	public String getDoctorCountry() {	return doctorCountry;	}
+	public String getUsername() {return username;}
 	
 
 }
