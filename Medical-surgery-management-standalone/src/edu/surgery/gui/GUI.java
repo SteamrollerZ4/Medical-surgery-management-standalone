@@ -42,12 +42,6 @@ public class GUI extends Application {
 	@FXML private TextField tf_country;
 	@FXML private ChoiceBox<String> cb_type;
 	@FXML private TextField tf_username;
-
-	
-	public static Stage getWindow() 
-	{
-		return window;
-	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -75,7 +69,7 @@ public class GUI extends Application {
 		}
 	}
 	
-	public void create(ActionEvent action) {		
+	public void create(ActionEvent action) {
 		switch(cb_type.getValue()) 
 		{
 			case "Doctor":
@@ -158,7 +152,7 @@ public class GUI extends Application {
             			System.out.println("User exists");
             			//continue to system and display appropriate information
             		}else {
-            			System.out.println("User exists");
+            			System.out.println("User doesn't exist");
             			//show account creation form i.e. NewUser.fxml
             		}
             		return true;
@@ -185,15 +179,18 @@ public class GUI extends Application {
          String query_1 = "SELECT * FROM doctor where username = '"+username+"'";
          String query_2 = "SELECT * FROM receptionist where username = '"+username+"'";
          String query_3 = "SELECT * FROM patient where username = '"+username+"'";
-         Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
          
-         ResultSet rs_1 = stmt.executeQuery(query_1);
-         ResultSet rs_2 = stmt.executeQuery(query_2);
-         ResultSet rs_3 = stmt.executeQuery(query_3);
+         Statement stmt_1 = MedicalSurgeryManager.getConnection().createStatement();
+         Statement stmt_2 = MedicalSurgeryManager.getConnection().createStatement();
+         Statement stmt_3 = MedicalSurgeryManager.getConnection().createStatement();
+         
+         ResultSet rs_1 = stmt_1.executeQuery(query_1);
+         ResultSet rs_2 = stmt_2.executeQuery(query_2);
+         ResultSet rs_3 = stmt_3.executeQuery(query_3);
          
          if(rs_1.next() || rs_2.next() || rs_3.next() )
          {
-        	 return false;
+        	 return true;
          }
          
      }
@@ -261,21 +258,30 @@ public class GUI extends Application {
         }
     }
     
+    //Create username and password only and open the details capturing form.
 	public void createUP(ActionEvent actionEvent) 
 	{
-		if(tf_pass_ori.getText().equals(tf_pass_ori.getText())) {
-			if(!Registration.createUserameAndPass(tf_username.getText(),  tf_pass_ori.getText()))
-				return;
-			
-			try {
-				currentUser = tf_username.getText();
-				Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
-				window.setTitle("Capture user details");
-				window.setScene(new Scene(root,720,560));
-			}catch (Exception e) {
-				System.out.println(e);
+		if(tf_pass_ori.getText().isEmpty() || tf_pass_con.getText().isEmpty() || tf_username.getText().isEmpty()){
+			lb_status.setText("No field can be left empty");
+		}else {
+		
+			if(tf_pass_ori.getText().equals(tf_pass_con.getText())) {
+				if(!Registration.createUserameAndPass(tf_username.getText(),  tf_pass_ori.getText()))
+					return;
+				
+				try {
+					currentUser = tf_username.getText();
+					Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
+					window.setTitle("Capture user details");
+					window.setScene(new Scene(root,720,560));
+				}catch (Exception e) {
+					System.out.println(e);
+				}
+		    	
+			} 
+			else{
+				lb_status.setText("Password doesn't match");
 			}
-	    	
 		}
 	}
 }
