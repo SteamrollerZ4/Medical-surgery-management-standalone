@@ -155,8 +155,10 @@ public class GUI extends Application {
             	if (rs.getString("passwordHash").equals(Cryptography.getMd5(password))) 
             	{
             		if(doesUserHaveAcc(username)) {
+            			System.out.println("User exists");
             			//continue to system and display appropriate information
             		}else {
+            			System.out.println("User exists");
             			//show account creation form i.e. NewUser.fxml
             		}
             		return true;
