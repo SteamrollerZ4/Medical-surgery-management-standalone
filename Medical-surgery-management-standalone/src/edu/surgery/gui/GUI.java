@@ -148,11 +148,11 @@ public class GUI extends Application {
 	    		throw new UserNotFound();
 			
 			//Select password hash
-			String query = "SELECT type from login where userId = '"+username+"' AND passwordHash = " +Cryptography.getMd5(password)+"'";
+			String query = "SELECT passwordHash from login where userId = '"+username+"'";
 			Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()) {
-            	if (rs.next()) 
+            	if (rs.getString("passwordHash").equals(Cryptography.getMd5(password))) 
             	{
             		if(doesUserHaveAcc(username)) {
             			//continue to system and display appropriate information
