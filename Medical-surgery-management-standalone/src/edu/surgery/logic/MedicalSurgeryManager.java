@@ -41,12 +41,4 @@ public class MedicalSurgeryManager
         }
         return null;
     }
-    
-    public static void main(String[] args)
-    {
-        Appointment app = (Appointment) AppointmentScheduling.getAppointments(getConnection())[0];
-//        Bill bill = new Bill(app.getDate().toLocalDate().atTime(app.getTime().toLocalTime()), 1 ,1 ,2, "10");
-//        Billing.recordBill(app, bill);
-//        System.out.println(Billing.getTotalBill(1));
-    }
 }

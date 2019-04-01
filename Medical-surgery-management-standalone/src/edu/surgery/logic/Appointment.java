@@ -18,36 +18,26 @@ public class Appointment
         this.doctorId = doctorId;
     }
     
-    //set appointmentId from db auto generated value
-    public Appointment setAppointmentId(int appointmentId)
-    {
+    //setters
+    public void setAppointmentId(int appointmentId)    {
         this.appointmentId = appointmentId;
-        return this;
     }
-    
+    public void setPatientId(int patientId) {
+    	this.patientId=patientId;
+    }
+    public void setDoctorId(int patientId) {
+    	this.patientId = patientId;
+    }
+    public void setDate(Date date) {
+    	this.date = date;
+    }
+    public void setTime(Time time) {
+    	this.time = time;
+    }
     //getters
-    public int getPatientId()
-    {
-        return patientId;
-    }
-    
-    public int getAppointmentId ()
-    {
-        return appointmentId;
-    }
-    
-    public int getDoctorId ()
-    {
-        return doctorId;
-    }
-    
-    public Date getDate ()
-    {
-        return date;
-    }
-    
-    public Time getTime ()
-    {
-        return time;
-    }
+    public int getPatientId(){        return patientId;    }    
+    public int getAppointmentId ()    {        return appointmentId;    }    
+    public int getDoctorId ()    {        return doctorId;    }    
+    public Date getDate ()    {        return date;    }    
+    public Time getTime ()    {        return time;    }
 }

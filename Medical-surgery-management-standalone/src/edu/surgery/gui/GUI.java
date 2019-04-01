@@ -1,8 +1,10 @@
 package edu.surgery.gui;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import edu.surgery.logic.*;
 import javafx.application.Application;
@@ -16,7 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -33,6 +38,7 @@ public class GUI extends Application {
 	@FXML private TextField tf_surname;
 	@FXML private TextField tf_nationalId;
 	@FXML private DatePicker dp_dob;
+	@FXML private DatePicker dp_appointment_date;
 	@FXML private TextField tf_cell;
 	@FXML private TextField tf_tel;
 	@FXML private TextField tf_email;
@@ -278,13 +284,54 @@ public class GUI extends Application {
 					window.setScene(new Scene(root,720,560));
 				}catch (Exception e) {
 					System.out.println(e);
-				}
-		    	
-			} 
+				}		    	
+			}
 			else{
 				lb_status.setText("Password doesn't match");
 			}
 		}
+	}
+	
+	
+	
+	//Check avialable times on particular date
+	public void checkAvailableOnDate(ActionEvent action) {
+		
+	}
+	
+	//Check booked appointments
+	public void displayAppointments(ActionEvent action)
+	{
+		ObservableList<Appointment> available = FXCollections.observableArrayList();
+		
+		for(Object a : AppointmentScheduling.getAvailableTimesOnDate(MedicalSurgeryManager.getConnection(), java.sql.Date.valueOf(dp_appointment_date.getValue())))
+			available.add((Appointment) a);
+		
+		TableView<Appointment> tv_available = new TableView<>();
+		
+		//Patient id column
+		TableColumn<Appointment, Integer> patientId = new TableColumn<>("PatientId");
+		patientId.setMinWidth(200);
+		patientId .setCellValueFactory(new PropertyValueFactory<>("patientId"));
+		//Doctor id column
+		TableColumn<Appointment, Integer> doctorId = new TableColumn<>("DoctorId");
+		doctorId.setMinWidth(200);
+		doctorId .setCellValueFactory(new PropertyValueFactory<>("doctorId"));
+		//Date column
+		TableColumn<Appointment, java.sql.Date> date = new TableColumn<>("Date");
+		date.setMinWidth(200);
+		date .setCellValueFactory(new PropertyValueFactory<>("doctorId"));
+		//Time column
+		TableColumn<Appointment, java.sql.Time> time = new TableColumn<>("Time");
+		time.setMinWidth(200);
+		time .setCellValueFactory(new PropertyValueFactory<>("time"));
+		
+		tv_available.setItems(available);
+		
+	}
+	//Close the appointmentview window
+	public void closeAppintmentView(ActionEvent action) {
+		
 	}
 	
 	//Schedule appointment

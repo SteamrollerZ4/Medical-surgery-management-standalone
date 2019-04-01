@@ -89,14 +89,15 @@ public class AppointmentScheduling
             
             ArrayList<Appointment> appointmentsList = new ArrayList<>();
             
-            while(rs.next()){
-                appointmentsList.add(
-                new Appointment(
-                rs.getDate("appointmentDate"),
-                rs.getTime("appointmentTime"),
-                rs.getInt("patientId"),
-                rs.getInt("doctorId")
-                ).setAppointmentId(rs.getInt("appointmentId")));
+            while(rs.next()){            	
+            	Appointment app =  new Appointment(
+                        rs.getDate("appointmentDate"),
+                        rs.getTime("appointmentTime"),
+                        rs.getInt("patientId"),
+                        rs.getInt("doctorId")
+                        );
+    			app.setAppointmentId(rs.getInt("appointmentId"));            	
+                appointmentsList.add(app);
                 }
             return appointmentsList.toArray();
             }

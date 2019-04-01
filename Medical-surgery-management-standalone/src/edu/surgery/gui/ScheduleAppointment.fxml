@@ -26,7 +26,7 @@
 	<Label text="date:"
 		GridPane.rowIndex="4"
 		GridPane.columnIndex="0"/>		
-	<DatePicker fx:id="dp_dob"
+	<DatePicker fx:id="dp_appointment_date"
 		GridPane.rowIndex="4"
 		GridPane.columnIndex="1"/>
 		
