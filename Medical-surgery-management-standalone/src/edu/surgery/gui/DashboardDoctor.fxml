@@ -12,24 +12,25 @@
 		hgap="10"
 		vgap="10">
 	
-	<Button text="View appointment"
+	<Button text="View appointments"
 		GridPane.rowIndex="0"
-		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.columnIndex="0"
+		GridPane.halignment="CENTER"
+		onAction="#displayAppointments"/>
 	
 	<Button text="Update treatment records"
 		GridPane.rowIndex="1"
-		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.columnIndex="0"
+		GridPane.halignment="CENTER"/>
 		
 	<Button text="Cancel appointment"
 		GridPane.rowIndex="2"
-		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.columnIndex="0"
+		GridPane.halignment="CENTER"/>
 		
 	<Button text="logout"
-		GridPane.rowIndex="14"
-		GridPane.columnIndex="1"
+		GridPane.rowIndex="4"
+		GridPane.columnIndex="0"
 		GridPane.halignment="RIGHT"
 		onAction="#logout"/>
 </GridPane>

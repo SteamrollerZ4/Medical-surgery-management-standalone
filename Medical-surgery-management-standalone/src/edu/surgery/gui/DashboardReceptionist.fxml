@@ -15,38 +15,32 @@
 	<Button text="New appointment"
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"
-		/>
+		GridPane.halignment="RIGHT"/>
 	
 	<Button text="View appointments"
 		GridPane.rowIndex="1"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"
-		/>
+		GridPane.halignment="RIGHT"/>
 		
 	<Button text="Cancel appointment"
 		GridPane.rowIndex="2"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"
-		/>
+		GridPane.halignment="RIGHT"/>
 		
 	<Button text="View patient bills"
 		GridPane.rowIndex="3"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"
-		/>
+		GridPane.halignment="RIGHT"/>
 		
 	<Button text="View available times"
 		GridPane.rowIndex="4"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"
-		/>
+		GridPane.halignment="RIGHT"/>
 		
 	<Button text="Bill patient"
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"
-		/>
+		GridPane.halignment="RIGHT"/>
 		
 	<Button text="logout"
 		GridPane.rowIndex="14"

@@ -339,7 +339,7 @@ public class GUI extends Application {
 		//switch scene
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("ViewAppointments.fxml"));
-			window.setTitle("Create user");
+			window.setTitle("Active appointments");
 			window.setScene(new Scene(root,720,560));
 		}catch (Exception e) {
 			System.out.println(e);

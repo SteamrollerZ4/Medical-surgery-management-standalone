@@ -63,8 +63,7 @@ public class Registration
              stmt = MedicalSurgeryManager.getConnection().createStatement();
              rs = stmt.executeQuery(query);
              if(rs.next())//true if user has been found            	 
-            	 return "Patient";
-             
+            	 return "Patient";             
          }
          catch(SQLException e)
          {
