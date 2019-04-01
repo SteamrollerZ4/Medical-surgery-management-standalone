@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<GridPane xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="edu.surgery.gui.GUI"
+		alignment="CENTER"
+		hgap="10"
+		vgap="10">
+	
+	<Button text="View appointment"
+		GridPane.rowIndex="0"
+		GridPane.columnIndex="1"
+		GridPane.halignment="RIGHT"/>
+	
+	<Button text="Update treatment records"
+		GridPane.rowIndex="1"
+		GridPane.columnIndex="1"
+		GridPane.halignment="RIGHT"/>
+		
+	<Button text="Cancel appointment"
+		GridPane.rowIndex="2"
+		GridPane.columnIndex="1"
+		GridPane.halignment="RIGHT"/>
+		
+	<Button text="logout"
+		GridPane.rowIndex="14"
+		GridPane.columnIndex="1"
+		GridPane.halignment="RIGHT"
+		onAction="#logout"/>
 </GridPane>
-  
+
