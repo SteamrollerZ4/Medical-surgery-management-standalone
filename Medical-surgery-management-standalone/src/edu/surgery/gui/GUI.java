@@ -17,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class GUI extends Application {
@@ -42,6 +43,7 @@ public class GUI extends Application {
 	@FXML private TextField tf_country;
 	@FXML private ChoiceBox<String> cb_type;
 	@FXML private TextField tf_username;
+	@FXML private GridPane gp_main;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -283,5 +285,10 @@ public class GUI extends Application {
 				lb_status.setText("Password doesn't match");
 			}
 		}
+	}
+	
+	//Schedule appointment
+	public void scheduleAppointment(){
+		
 	}
 }
