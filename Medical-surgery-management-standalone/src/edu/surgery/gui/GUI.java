@@ -79,7 +79,7 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("NewUser.fxml"));
 			window.setTitle("Create user");
-			window.setScene(new Scene(root,1280,720));
+			window.setScene(new Scene(root,600,275));
 		}catch (Exception e) {
 			System.out.println(e);
 		}
@@ -181,12 +181,22 @@ public class GUI extends Application {
 	}
 	
 	//sigin button callback
-	public void signin(ActionEvent action)	{
+	public void signin(ActionEvent actionEvent)	{
 		if(userLogin(tf_user.getText(), tf_pass.getText())){
 			currentUserName=tf_user.getText();
 			lb_status.setText("login successful");
 			//switch scene to appropriate dashboard
-			selectDashBoard(currentUserName);
+			if(doesUserHaveAcc(currentUserName))
+				selectDashBoard(currentUserName);
+			else {
+				try {
+					Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
+					window.setTitle("Capture user details");
+					window.setScene(new Scene(root,1280,720));
+				}catch (Exception e) {
+					System.out.println(e);
+				}
+			}
 			
 		}else {
 			lb_status.setText("login failed");
@@ -264,11 +274,11 @@ public class GUI extends Application {
 	{
 		 try{
 	            String query = "INSERT INTO receptionist (receptionistName, receptionistSurname, receptionistNationalId ,receptionistDOB, receptionistCell, "
-	            		+ "receptionistTel, receptionistEmail, receptionistFacebook, receptionistTweeter, receptionistAddress, receptionistCity, receptionistCountry) VALUES ("+
+	            		+ "receptionistTel, receptionistEmail, receptionistFacebook, receptionistTweeter, receptionistAddress, receptionistCity, receptionistCountry, username) VALUES ("+
 	            		"'"+receptionist.getReceptionistName()+"','"+receptionist.getReceptionistSurname()+"','"+receptionist.getReceptionistNationalId()+"',"+
 	            		"'"+receptionist.getReceptionistDOB()+"','"+receptionist.getReceptionistCell()+"','"+receptionist.getReceptionistTel() +"','"+receptionist.getReceptionistEmail() +
 	            		"','"+receptionist.getReceptionistFacebook() +"','"+receptionist.getReceptionistTweeter()+"','"+receptionist.getReceptionistAddress() +
-	            		"','"+receptionist.getReceptionistCity() +"','"+receptionist.getReceptionistCountry() +"')";
+	            		"','"+receptionist.getReceptionistCity() +"','"+receptionist.getReceptionistCountry() +"','"+receptionist.getUsername()+"')";
 	            
 	            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
 	            stmt.executeUpdate(query);
@@ -316,7 +326,7 @@ public class GUI extends Application {
         }
     }
     
-    //Create username and password only and open the details capturing form.
+    //Create username and password only, and open the details capturing form.
 	public void createUP(ActionEvent actionEvent) 
 	{
 		if(tf_pass_ori.getText().isEmpty() || tf_pass_con.getText().isEmpty() || tf_username.getText().isEmpty()){

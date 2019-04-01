@@ -69,4 +69,5 @@ public class Receptionist
 	public String getReceptionistAddress() {		return receptionistAddress;	}
 	public String getReceptionistCity() {	return receptionistCity;	}
 	public String getReceptionistCountry() {	return receptionistCountry;	}
+	public String getUsername() {return username;}
 }
