@@ -48,6 +48,8 @@ public class GUI extends Application {
 	@FXML private TextField tf_city;
 	@FXML private TextField tf_country;
 	@FXML private ChoiceBox<String> cb_type;
+	@FXML private ChoiceBox<String> cb_usernameOrNatId;
+	@FXML private ChoiceBox<String> cb_time;
 	@FXML private TextField tf_username;
 	@FXML private GridPane gp_main;
 	@FXML private TableView tv_available;
@@ -66,7 +68,7 @@ public class GUI extends Application {
 		launch(args);
 	}
 	
-	
+	//go to user creation page i.e signup button callback
 	public void signup(ActionEvent action)
 	{
 		try {
@@ -78,6 +80,7 @@ public class GUI extends Application {
 		}
 	}
 	
+	//create user button callback
 	public void create(ActionEvent action) {
 		switch(cb_type.getValue()) 
 		{
@@ -134,6 +137,7 @@ public class GUI extends Application {
 		}
 	}
 	
+	//sigin button callback
 	public void signin(ActionEvent action)	{
 		if(userLogin(tf_user.getText(), tf_pass.getText())){
 			currentUserName=tf_user.getText();
@@ -180,6 +184,7 @@ public class GUI extends Application {
 		}		
 	}
 	
+	//returns true if loggin was successful. Not a button callback function.
 	public static boolean userLogin(String username ,String password){
 		try {
 			if(Registration.checkIfAvailabe(username))//If specified user does exist, throw exception
@@ -217,6 +222,7 @@ public class GUI extends Application {
 	return false;
 	}
 	
+	//Check if specified user has an account
 	public static boolean doesUserHaveAcc(String username) {
    	 try{
          String query_1 = "SELECT * FROM doctor where username = '"+username+"'";
@@ -328,9 +334,11 @@ public class GUI extends Application {
 	}
 	
 	
-	//Check avialable times on particular date
+	//Check avialable times on particular date, callback method
 	public void checkAvailableOnDate(ActionEvent action) {
-		
+		//add available times to the date selection drop down menu
+		AppointmentScheduling.getAvailableTimesOnDate(MedicalSurgeryManager.getConnection(),
+				java.sql.Date.valueOf(dp_appointment_date.getValue()));
 	}
 	
 	//Check booked appointments
@@ -375,12 +383,30 @@ public class GUI extends Application {
 		
 	}
 	
-	//Schedule appointment
-	public void scheduleAppointment(){
-		
+	//Schedule appointment, create appointment button callback
+	public void scheduleAppointment(ActionEvent action){
+		AppointmentScheduling.addAppointment(MedicalSurgeryManager.getConnection(),		
+			new Appointment(
+					java.sql.Date.valueOf(dp_appointment_date.getValue()),
+					java.sql.Time.valueOf(cb_time.getValue()),
+					Registration.getPatientIdByUsername(currentUserName),
+					AppointmentScheduling.getAvailableDoctor()
+					));
 	}
 	
-	//Logout of system
+	//show to appointment scheduling window
+	public void showAppointmentScheduling(ActionEvent action) 
+	{
+		try {			
+			Parent root = FXMLLoader.load(getClass().getResource("ScheduleAppointment.fxml"));
+			window.setTitle("Dashboard");
+			window.setScene(new Scene(root,720,560));
+		}catch (Exception e) {
+			System.out.println(e);
+		}		
+	}
+	
+	//Log out of system i.e. show login screen
 	public void logout(ActionEvent action) 
 	{
 		

@@ -72,7 +72,7 @@ public class Registration
     	 return null;
     }
     
-    //Checks if user name is available
+    //Checks if user name is available. returns false if user name is taken.
     public static boolean checkIfAvailabe(String username) 
     {
     	 try{
@@ -93,12 +93,30 @@ public class Registration
     	 return true;
     }
     
-    //Used when patient doesn't know their id
+    public static int getPatientIdByUsername(String username) {
+    	try{
+            String query = "SELECT patientId FROM patient where username = '"+username+"'";
+            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);             
+            
+            if(rs.next())
+            {
+           	 return rs.getInt("patientId");
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+        }
+    	return -1;
+    }
+    //Used to get patient id by national id
     public static int getPatientIdByNationalId(String nationalId)
     {
     	return 0;
     }
-    //Used when patient doesn't know their id
+    //Used to get patient id by patient full name and surname
     public static int[] getPatientIdByFullname(String name, String surname)
     {
     	return new int[] {};

@@ -32,14 +32,13 @@
 		
 	<Label text="time:"
 		GridPane.rowIndex="13"
-		GridPane.columnIndex="0"/>		
-
+		GridPane.columnIndex="0"/>
 		
 	<Button text="schedule appointment"
 		GridPane.rowIndex="14"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"
-		onAction="#create"/>
+		onAction="#showAppointmentScheduling"/>
 
 </GridPane>
 

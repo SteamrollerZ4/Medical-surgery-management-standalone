@@ -55,6 +55,27 @@ public class AppointmentScheduling
         return null;
     }
     
+    public static Integer getAvailableDoctor() 
+    {
+    	try{
+            String query = "SELECT doctorId FROM doctor";
+            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            ArrayList<Integer> doctorIds = new ArrayList<>();
+            int doc_id;
+            while(rs.next())
+            {
+            	doctorIds.add(rs.getInt("doctorId"));
+            }     
+            //return doctorIds.get((int)Math.round(Math.random())%doctorIds.size());
+            return 0;
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    	return null;
+    }
+    
     //Add appointment to db
     public static void addAppointment(Connection conn, Appointment appointment)
     {
