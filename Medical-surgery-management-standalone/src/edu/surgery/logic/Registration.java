@@ -40,7 +40,38 @@ public class Registration
 		}
     	return false;
     }
-
+    
+    //Gets the user's type given the username
+    public static String getUserType(String userName) {
+    	 try{
+    		 //Check if user is of type doctor
+             String query = "SELECT doctorId FROM doctor WHERE username = '"+userName+"'";
+             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+             ResultSet rs = stmt.executeQuery(query);
+             if(rs.next())//true if user has been found            	 
+            	 return "Doctor";
+             
+             //Check if user is of type patient
+             query = "SELECT patientId FROM patient WHERE username = '"+userName+"'";
+             stmt = MedicalSurgeryManager.getConnection().createStatement();
+             rs = stmt.executeQuery(query);
+             if(rs.next())//true if user has been found            	 
+            	 return "Patient";
+             
+             //Check if user is of type receptionist
+             query = "SELECT receptionistId FROM receptionist WHERE username = '"+userName+"'";
+             stmt = MedicalSurgeryManager.getConnection().createStatement();
+             rs = stmt.executeQuery(query);
+             if(rs.next())//true if user has been found            	 
+            	 return "Patient";
+             
+         }
+         catch(SQLException e)
+         {
+             System.out.println(e);
+         }
+    	 return null;
+    }
     
     //Checks if user name is available
     public static boolean checkIfAvailabe(String username) 

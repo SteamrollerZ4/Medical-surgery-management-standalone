@@ -6,28 +6,22 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1" 
 				fx:controller="edu.surgery.gui.GUI"
 				alignment="CENTER"
 				hgap="2"
 				vgap="2">
-		
-	<Label  text="username:"
-		GridPane.rowIndex="2"
-		GridPane.columnIndex="0"/>	
-	<TextField fx:id="tf_user"
-		GridPane.rowIndex="2"
-		GridPane.columnIndex="1"/>
+				
+	<TableView fx:id="tv_available"
+		GridPane.rowIndex="1"
+		GridPane.columnIndex="1">	
+	</TableView>
 	
 		
-	<Label fx:id="lb_status"
-		GridPane.halignment="CENTER"
-		GridPane.rowIndex="4"
-		GridPane.columnSpan="2"
-		GridPane.columnIndex="0"/>		
 	<Button text="close"
-		GridPane.rowIndex="4"
+		GridPane.rowIndex="1"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"
 		onAction="#closeAppintmentView"/>		

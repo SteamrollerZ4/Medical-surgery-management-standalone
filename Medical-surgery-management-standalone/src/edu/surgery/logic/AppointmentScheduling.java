@@ -77,6 +77,13 @@ public class AppointmentScheduling
     public static void cancelAppointment(Connection conn, Appointment appointment)
     {
     //delete appointment in db
+    	try {
+	    	 String query = "DELETE FROM TABLE appointment WHERE appointmentId = '"+appointment.getAppointmentId()+"'";
+	         Statement stmt = conn.createStatement();
+	         stmt.executeUpdate(query);
+    	}catch(SQLException e) {
+    		System.out.println(e);
+    	}
     }
     
     //Returns list of all scheduled appointments

@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 
 public class GUI extends Application {
 	private	static Stage window;
-	private static String currentUser;
+	private static String currentUserName;
 	
 	@FXML private Label lb_status;
 	@FXML private TextField tf_user;
@@ -50,6 +50,7 @@ public class GUI extends Application {
 	@FXML private ChoiceBox<String> cb_type;
 	@FXML private TextField tf_username;
 	@FXML private GridPane gp_main;
+	@FXML private TableView tv_available;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -94,7 +95,7 @@ public class GUI extends Application {
 						tf_address.getText(), 
 						tf_city.getText(), 
 						tf_country.getText(),
-						currentUser);
+						currentUserName);
 				createDoctor(doc);
 				break;
 			case "Receptionist":
@@ -111,7 +112,7 @@ public class GUI extends Application {
 						tf_address.getText(), 
 						tf_city.getText(), 
 						tf_country.getText(),
-						currentUser);
+						currentUserName);
 				createReceptionist(rec);
 				break;
 			case "Patient":
@@ -127,24 +128,59 @@ public class GUI extends Application {
 						tf_address.getText(), 
 						tf_city.getText(), 
 						tf_country.getText(),
-						currentUser);
+						currentUserName);
 				createPatient(pat);
 				break;			
 		}
 	}
 	
-	public void signin(ActionEvent action)
-	{
+	public void signin(ActionEvent action)	{
 		if(userLogin(tf_user.getText(), tf_pass.getText())){
-			currentUser=tf_user.getText();
+			currentUserName=tf_user.getText();
 			lb_status.setText("login successful");
+			//switch scene to appropriate dashboard
+			switch(Registration.getUserType(tf_user.getText())) {
+				case "Doctor":
+					//show doctor dashboard
+					try {
+						
+						Parent root = FXMLLoader.load(getClass().getResource("DashboardDoctor.fxml"));
+						window.setTitle("Dashboard");
+						window.setScene(new Scene(root,720,560));
+					}catch (Exception e) {
+						System.out.println(e);
+					}		
+					break;
+				case "Patient":
+					//show patient dashboard
+					try {
+						
+						Parent root = FXMLLoader.load(getClass().getResource("DashboardPatient.fxml"));
+						window.setTitle("Dashboard");
+						window.setScene(new Scene(root,720,560));
+					}catch (Exception e) {
+						System.out.println(e);
+					}
+					break;
+				case "Receptionist":
+					//show receptionist dashboard
+					try {
+						
+						Parent root = FXMLLoader.load(getClass().getResource("DashboardReceptionist.fxml"));
+						window.setTitle("Dashboard");
+						window.setScene(new Scene(root,720,560));
+					}catch (Exception e) {
+						System.out.println(e);
+					}
+					break;
+			}
+			
 		}else {
 			lb_status.setText("login failed");
 		}		
 	}
 	
-	public static boolean userLogin(String username ,String password)
-	{
+	public static boolean userLogin(String username ,String password){
 		try {
 			if(Registration.checkIfAvailabe(username))//If specified user does exist, throw exception
 	    		throw new UserNotFound();
@@ -158,7 +194,6 @@ public class GUI extends Application {
             	{
             		if(doesUserHaveAcc(username)) {
             			System.out.println("User exists");
-            			//continue to system and display appropriate information
             		}else {
             			System.out.println("User doesn't exist");
             			//show account creation form i.e. NewUser.fxml
@@ -278,7 +313,7 @@ public class GUI extends Application {
 					return;
 				
 				try {
-					currentUser = tf_username.getText();
+					currentUserName = tf_username.getText();
 					Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
 					window.setTitle("Capture user details");
 					window.setScene(new Scene(root,720,560));
@@ -293,7 +328,6 @@ public class GUI extends Application {
 	}
 	
 	
-	
 	//Check avialable times on particular date
 	public void checkAvailableOnDate(ActionEvent action) {
 		
@@ -302,12 +336,19 @@ public class GUI extends Application {
 	//Check booked appointments
 	public void displayAppointments(ActionEvent action)
 	{
+		//switch scene
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("ViewAppointments.fxml"));
+			window.setTitle("Create user");
+			window.setScene(new Scene(root,720,560));
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		
 		ObservableList<Appointment> available = FXCollections.observableArrayList();
 		
 		for(Object a : AppointmentScheduling.getAvailableTimesOnDate(MedicalSurgeryManager.getConnection(), java.sql.Date.valueOf(dp_appointment_date.getValue())))
 			available.add((Appointment) a);
-		
-		TableView<Appointment> tv_available = new TableView<>();
 		
 		//Patient id column
 		TableColumn<Appointment, Integer> patientId = new TableColumn<>("PatientId");
@@ -329,13 +370,19 @@ public class GUI extends Application {
 		tv_available.setItems(available);
 		
 	}
-	//Close the appointmentview window
+	//Close the appointmentview window and go back to dashboard
 	public void closeAppintmentView(ActionEvent action) {
 		
 	}
 	
 	//Schedule appointment
 	public void scheduleAppointment(){
+		
+	}
+	
+	//Logout of system
+	public void logout(ActionEvent action) 
+	{
 		
 	}
 }
