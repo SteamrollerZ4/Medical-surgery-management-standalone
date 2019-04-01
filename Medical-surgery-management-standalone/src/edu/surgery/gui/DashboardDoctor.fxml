@@ -13,7 +13,7 @@
 		hgap="10"
 		vgap="10">
 	
-	<Button text="View appointments"
+	<Button text="Appointments"
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="0"
 		GridPane.halignment="CENTER"
@@ -21,11 +21,6 @@
 	
 	<Button text="Update treatment records"
 		GridPane.rowIndex="1"
-		GridPane.columnIndex="0"
-		GridPane.halignment="CENTER"/>
-		
-	<Button text="Cancel appointment"
-		GridPane.rowIndex="2"
 		GridPane.columnIndex="0"
 		GridPane.halignment="CENTER"/>
 		

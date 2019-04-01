@@ -23,7 +23,7 @@
 
 	<ChoiceBox
 		fx:id="cb_usernameOrNatId"
-		value="National id"
+		value="Username"
 		GridPane.rowIndex="1"
 		GridPane.columnIndex="0">
 	    <items>

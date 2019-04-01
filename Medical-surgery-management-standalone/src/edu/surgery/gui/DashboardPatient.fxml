@@ -15,23 +15,29 @@
 	
 	<Button text="Schedule appointment"
 		GridPane.rowIndex="0"
-		GridPane.columnIndex="1"
+		GridPane.columnIndex="0"
 		GridPane.halignment="RIGHT"
 		onAction="#showAppointmentScheduling"/>
 	
-	<Button text="Cancel appointment"
+	<Button text="Appointments"
 		GridPane.rowIndex="1"
-		GridPane.columnIndex="1"
+		GridPane.columnIndex="0"
 		GridPane.halignment="RIGHT"/>
 		
-	<Button text="View appointment"
+	<Button text="Bills"
 		GridPane.rowIndex="2"
-		GridPane.columnIndex="1"
+		GridPane.columnIndex="0"
 		GridPane.halignment="RIGHT"/>
+		
+	<Button text="Receipts"
+		GridPane.rowIndex="3"
+		GridPane.columnIndex="0"
+		GridPane.halignment="RIGHT"/>
+		
 		
 	<Button text="logout"
-		GridPane.rowIndex="14"
-		GridPane.columnIndex="1"
+		GridPane.rowIndex="4"
+		GridPane.columnIndex="0"
 		GridPane.halignment="RIGHT"
 		onAction="#logout"/>
 </GridPane>
