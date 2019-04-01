@@ -10,14 +10,14 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1" 
 				fx:controller="edu.surgery.gui.GUI"
+				fx:id="gp_main"
 				alignment="CENTER"
 				hgap="2"
 				vgap="2">
 				
 	<TableView fx:id="tv_available"
-		GridPane.rowIndex="1"
-		GridPane.columnIndex="1">	
-	</TableView>
+		GridPane.rowIndex="0"
+		GridPane.columnIndex="1"/>	
 	
 		
 	<Button text="close"

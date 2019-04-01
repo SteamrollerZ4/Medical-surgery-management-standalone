@@ -8,21 +8,23 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1"
 		fx:controller="edu.surgery.gui.GUI"
+		fx:id="gp_main"
 		alignment="CENTER"
 		hgap="10"
 		vgap="10">
 	
-	<Button text="View appointment"
+	<Button text="Schedule appointment"
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.halignment="RIGHT"
+		onAction="#showAppointmentScheduling"/>
 	
-	<Button text="Update treatment records"
+	<Button text="Cancel appointment"
 		GridPane.rowIndex="1"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"/>
 		
-	<Button text="Cancel appointment"
+	<Button text="View appointment"
 		GridPane.rowIndex="2"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"/>

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import edu.surgery.logic.*;
 import javafx.application.Application;
@@ -13,8 +14,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -23,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GUI extends Application {
@@ -52,7 +57,7 @@ public class GUI extends Application {
 	@FXML private ChoiceBox<String> cb_time;
 	@FXML private TextField tf_username;
 	@FXML private GridPane gp_main;
-	@FXML private TableView tv_available;
+	@FXML private TableView<Appointment> tv_available;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -74,7 +79,7 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("NewUser.fxml"));
 			window.setTitle("Create user");
-			window.setScene(new Scene(root,720,560));
+			window.setScene(new Scene(root,1280,720));
 		}catch (Exception e) {
 			System.out.println(e);
 		}
@@ -137,47 +142,51 @@ public class GUI extends Application {
 		}
 	}
 	
+	void selectDashBoard(String currentUserName) {
+		switch(Registration.getUserType(currentUserName)) {
+		case "Doctor":
+			//show doctor dashboard
+			try {
+				
+				Parent root = FXMLLoader.load(getClass().getResource("DashboardDoctor.fxml"));
+				window.setTitle("Dashboard");
+				window.setScene(new Scene(root,1280,720));
+			}catch (Exception e) {
+				System.out.println(e);
+			}		
+			break;
+		case "Patient":
+			//show patient dashboard
+			try {
+				
+				Parent root = FXMLLoader.load(getClass().getResource("DashboardPatient.fxml"));
+				window.setTitle("Dashboard");
+				window.setScene(new Scene(root,1280,720));
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+			break;
+		case "Receptionist":
+			//show receptionist dashboard
+			try {
+				
+				Parent root = FXMLLoader.load(getClass().getResource("DashboardReceptionist.fxml"));
+				window.setTitle("Dashboard");
+				window.setScene(new Scene(root,1280,720));
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+			break;
+	}
+	}
+	
 	//sigin button callback
 	public void signin(ActionEvent action)	{
 		if(userLogin(tf_user.getText(), tf_pass.getText())){
 			currentUserName=tf_user.getText();
 			lb_status.setText("login successful");
 			//switch scene to appropriate dashboard
-			switch(Registration.getUserType(tf_user.getText())) {
-				case "Doctor":
-					//show doctor dashboard
-					try {
-						
-						Parent root = FXMLLoader.load(getClass().getResource("DashboardDoctor.fxml"));
-						window.setTitle("Dashboard");
-						window.setScene(new Scene(root,720,560));
-					}catch (Exception e) {
-						System.out.println(e);
-					}		
-					break;
-				case "Patient":
-					//show patient dashboard
-					try {
-						
-						Parent root = FXMLLoader.load(getClass().getResource("DashboardPatient.fxml"));
-						window.setTitle("Dashboard");
-						window.setScene(new Scene(root,720,560));
-					}catch (Exception e) {
-						System.out.println(e);
-					}
-					break;
-				case "Receptionist":
-					//show receptionist dashboard
-					try {
-						
-						Parent root = FXMLLoader.load(getClass().getResource("DashboardReceptionist.fxml"));
-						window.setTitle("Dashboard");
-						window.setScene(new Scene(root,720,560));
-					}catch (Exception e) {
-						System.out.println(e);
-					}
-					break;
-			}
+			selectDashBoard(currentUserName);
 			
 		}else {
 			lb_status.setText("login failed");
@@ -322,7 +331,7 @@ public class GUI extends Application {
 					currentUserName = tf_username.getText();
 					Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
 					window.setTitle("Capture user details");
-					window.setScene(new Scene(root,720,560));
+					window.setScene(new Scene(root,1280,720));
 				}catch (Exception e) {
 					System.out.println(e);
 				}		    	
@@ -341,43 +350,6 @@ public class GUI extends Application {
 				java.sql.Date.valueOf(dp_appointment_date.getValue()));
 	}
 	
-	//Check booked appointments
-	public void displayAppointments(ActionEvent action)
-	{
-		//switch scene
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("ViewAppointments.fxml"));
-			window.setTitle("Active appointments");
-			window.setScene(new Scene(root,720,560));
-		}catch (Exception e) {
-			System.out.println(e);
-		}
-		
-		ObservableList<Appointment> available = FXCollections.observableArrayList();
-		
-		for(Object a : AppointmentScheduling.getAvailableTimesOnDate(MedicalSurgeryManager.getConnection(), java.sql.Date.valueOf(dp_appointment_date.getValue())))
-			available.add((Appointment) a);
-		
-		//Patient id column
-		TableColumn<Appointment, Integer> patientId = new TableColumn<>("PatientId");
-		patientId.setMinWidth(200);
-		patientId .setCellValueFactory(new PropertyValueFactory<>("patientId"));
-		//Doctor id column
-		TableColumn<Appointment, Integer> doctorId = new TableColumn<>("DoctorId");
-		doctorId.setMinWidth(200);
-		doctorId .setCellValueFactory(new PropertyValueFactory<>("doctorId"));
-		//Date column
-		TableColumn<Appointment, java.sql.Date> date = new TableColumn<>("Date");
-		date.setMinWidth(200);
-		date .setCellValueFactory(new PropertyValueFactory<>("doctorId"));
-		//Time column
-		TableColumn<Appointment, java.sql.Time> time = new TableColumn<>("Time");
-		time.setMinWidth(200);
-		time .setCellValueFactory(new PropertyValueFactory<>("time"));
-		
-		tv_available.setItems(available);
-		
-	}
 	//Close the appointmentview window and go back to dashboard
 	public void closeAppintmentView(ActionEvent action) {
 		
@@ -392,6 +364,54 @@ public class GUI extends Application {
 					Registration.getPatientIdByUsername(currentUserName),
 					AppointmentScheduling.getAvailableDoctor()
 					));
+	}
+	
+	//show to appointments view window
+	public void displayAppointments(ActionEvent action) 
+	{
+		ObservableList<Appointment> apps = FXCollections.observableArrayList();
+		
+		for(Object a : AppointmentScheduling.getAppointments(MedicalSurgeryManager.getConnection()))
+				apps.add((Appointment) a);
+		
+		//Patient id column
+		TableColumn<Appointment, Integer> patientId = new TableColumn<>("PatientId");
+		patientId.setMinWidth(200);
+		patientId .setCellValueFactory(new PropertyValueFactory<>("patientId"));
+		//Doctor id column
+		TableColumn<Appointment, Integer> doctorId = new TableColumn<>("DoctorId");
+		doctorId.setMinWidth(200);
+		doctorId .setCellValueFactory(new PropertyValueFactory<>("doctorId"));
+		//Date column
+		TableColumn<Appointment, java.sql.Date> date = new TableColumn<>("Date");
+		date.setMinWidth(200);
+		date.setCellValueFactory(new PropertyValueFactory<>("appointmentDate"));
+		//Time column
+		TableColumn<Appointment, java.sql.Time> time = new TableColumn<>("Time");
+		time.setMinWidth(200);
+		time.setCellValueFactory(new PropertyValueFactory<>("appointmentTime"));
+		//Appointment id column
+		TableColumn<Appointment, Integer> id = new TableColumn<>("AppointmentId");
+		id.setMinWidth(200);
+		id .setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+		tv_available = new TableView<Appointment>();
+		tv_available.setItems(apps);
+		tv_available.getColumns().addAll(patientId,doctorId,date,time,id);
+		GridPane root = new GridPane();
+		
+		root.setVgap(20);
+		root.setHgap(20);
+		root.setAlignment(Pos.CENTER);
+		
+		root.setConstraints(tv_available, 0, 0);
+		Button btnClose = new Button("Close");
+		btnClose.setOnAction(e->{
+			//go back to previous window
+			selectDashBoard(currentUserName);
+		});
+		root.setConstraints(btnClose, 1, 1);
+		root.getChildren().addAll(tv_available,btnClose);
+		window.setScene(new Scene(root,1280,720));
 	}
 	
 	//show to appointment scheduling window

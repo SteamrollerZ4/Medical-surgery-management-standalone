@@ -9,9 +9,9 @@ public class AppointmentScheduling
     //returns true if appointment is available
     public static boolean  checkIfAvailable(Connection conn, Appointment appointment)//Checks if appointment is available
     {
-        for(Object t :  getAvailableTimesOnDate(conn, appointment.getDate()))
+        for(Object t :  getAvailableTimesOnDate(conn, appointment.getAppointmentDate()))
         {
-            if(appointment.getTime().toLocalTime().equals((LocalTime) t))
+            if(appointment.getAppointmentTime().toLocalTime().equals((LocalTime) t))
                 return true;
         }
     
@@ -62,13 +62,13 @@ public class AppointmentScheduling
             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ArrayList<Integer> doctorIds = new ArrayList<>();
-            int doc_id;
+
             while(rs.next())
             {
             	doctorIds.add(rs.getInt("doctorId"));
             }     
             //return doctorIds.get((int)Math.round(Math.random())%doctorIds.size());
-            return 0;
+            return doctorIds.get(0);
         }
         catch(SQLException e){
             System.out.println(e);
@@ -81,7 +81,7 @@ public class AppointmentScheduling
     {
         try{
             //insert appointment into db
-            String query = "INSERT INTO appointment (appointmentDate, appointmentTime, patientId, doctorId) VALUES ("+ "'"+appointment.getDate()+"'"+","+"'"+appointment.getTime()+"'"+","+"'"+appointment.getPatientId()+"'"+","+"'"+appointment.getDoctorId()+"'" +")";
+            String query = "INSERT INTO appointment (appointmentDate, appointmentTime, patientId, doctorId) VALUES ("+ "'"+appointment.getAppointmentDate()+"'"+","+"'"+appointment.getAppointmentTime()+"'"+","+"'"+appointment.getPatientId()+"'"+","+"'"+appointment.getDoctorId()+"'" +")";
             
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(query);

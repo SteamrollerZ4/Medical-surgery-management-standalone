@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
 <GridPane
 		fx:id="gp_main" 
@@ -10,35 +14,65 @@
 		hgap="10"
 		vgap="10">
 		
-	<Label  fx:id="lb_status"
-		GridPane.columnSpan="2"
-		GridPane.halignment="CENTER"
+	<Label text="date: "
 		GridPane.rowIndex="0"
-		GridPane.columnIndex="0"/>
-
-	<Label text="nationalId"
-		GridPane.rowIndex="3"
-		GridPane.columnIndex="0"/>		
-	<TextField  fx:id="tf_nationalId"
-		GridPane.rowIndex="3"
-		GridPane.columnIndex="1"/>
-		
-	<Label text="date:"
-		GridPane.rowIndex="4"
 		GridPane.columnIndex="0"/>		
 	<DatePicker fx:id="dp_appointment_date"
-		GridPane.rowIndex="4"
+		GridPane.rowIndex="0"
 		GridPane.columnIndex="1"/>
-		
-	<Label text="time:"
-		GridPane.rowIndex="13"
-		GridPane.columnIndex="0"/>
+
+	<ChoiceBox
+		fx:id="cb_usernameOrNatId"
+		value="National id"
+		GridPane.rowIndex="1"
+		GridPane.columnIndex="0">
+	    <items>
+	        <FXCollections fx:id="options"
+	        	fx:factory="observableArrayList">
+	            <String fx:value="National id" />
+	            <String fx:value="Username" />
+	        </FXCollections>
+	    </items>
+	</ChoiceBox>
+	<TextField  fx:id="tf_usernameOrNatId"
+		GridPane.rowIndex="1"
+		GridPane.columnIndex="1"/>
+			
+	<Label text="time: "
+		GridPane.rowIndex="2"
+		GridPane.columnIndex="0"/>		
+	<ChoiceBox
+		fx:id="cb_time"
+		value="08:00:00"
+		GridPane.rowIndex="2"
+		GridPane.columnIndex="1"
+		GridPane.halignment="RIGHT">
+	    <items>
+	        <FXCollections fx:id="options"
+	        	fx:factory="observableArrayList">
+	            <String fx:value="08:00:00" />
+	            <String fx:value="08:30:00" />
+	            <String fx:value="09:00:00" />
+	            <String fx:value="09:30:00" />
+	            <String fx:value="10:00:00" />
+	            <String fx:value="10:30:00" />
+	            <String fx:value="11:00:00" />
+	            <String fx:value="11:30:00" />
+	            <String fx:value="12:00:00" />
+	            <String fx:value="12:30:00" />
+	            <String fx:value="14:00:00" />
+	            <String fx:value="14:30:00" />
+	            <String fx:value="15:00:00" />
+	            <String fx:value="15:30:00" />
+	        </FXCollections>
+	    </items>
+	</ChoiceBox>
 		
 	<Button text="schedule appointment"
-		GridPane.rowIndex="14"
+		GridPane.rowIndex="3"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"
-		onAction="#showAppointmentScheduling"/>
+		onAction="#scheduleAppointment"/>
 
 </GridPane>
 

@@ -9,7 +9,7 @@ public class Billing{
 	//insert bill entry into bill table
     public static void recordBill(Appointment appointment, Bill bill){
          try{
-            String query = "INSERT INTO bill (billDate, billTime, doctorId ,patientId, appointmentId, billAmount) VALUES ("+ "'"+appointment.getDate()+"','"+appointment.getTime()+"','"+appointment.getDoctorId()+"',"+"'"+appointment.getPatientId()+"','"+appointment.getAppointmentId()+"','"+bill.getAmount() +"')";
+            String query = "INSERT INTO bill (billDate, billTime, doctorId ,patientId, appointmentId, billAmount) VALUES ("+ "'"+appointment.getAppointmentDate()+"','"+appointment.getAppointmentTime()+"','"+appointment.getDoctorId()+"',"+"'"+appointment.getPatientId()+"','"+appointment.getAppointmentId()+"','"+bill.getAmount() +"')";
             
             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
             stmt.executeUpdate(query);

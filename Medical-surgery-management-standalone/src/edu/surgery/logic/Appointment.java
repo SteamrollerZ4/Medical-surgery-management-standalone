@@ -7,13 +7,13 @@ public class Appointment
     private int patientId;
     private int appointmentId;
     private int doctorId;
-    private Date date;
-    private Time time;
+    private Date appointmentDate;
+    private Time appointmentTime;
     
-    public Appointment(Date date, Time time, int patientId, int doctorId)
+    public Appointment(Date appointmentDate, Time appointmentTime, int patientId, int doctorId)
     {
-        this.date = date;
-        this.time = time;
+        this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
         this.patientId = patientId;
         this.doctorId = doctorId;
     }
@@ -28,16 +28,16 @@ public class Appointment
     public void setDoctorId(int patientId) {
     	this.patientId = patientId;
     }
-    public void setDate(Date date) {
-    	this.date = date;
+    public void setAppointmentDate(Date appointmentDate) {
+    	this.appointmentDate = appointmentDate;
     }
-    public void setTime(Time time) {
-    	this.time = time;
+    public void setAppointmentTime(Time time) {
+    	this.appointmentTime = appointmentTime;
     }
     //getters
     public int getPatientId(){        return patientId;    }    
     public int getAppointmentId ()    {        return appointmentId;    }    
     public int getDoctorId ()    {        return doctorId;    }    
-    public Date getDate ()    {        return date;    }    
-    public Time getTime ()    {        return time;    }
+    public Date getAppointmentDate ()    {        return appointmentDate;    }    
+    public Time getAppointmentTime ()    {        return appointmentTime;    }
 }

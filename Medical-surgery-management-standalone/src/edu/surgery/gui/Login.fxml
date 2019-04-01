@@ -9,6 +9,7 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1" 
 				fx:controller="edu.surgery.gui.GUI"
+				fx:id="gp_main"
 				alignment="CENTER"
 				hgap="2"
 				vgap="2">
