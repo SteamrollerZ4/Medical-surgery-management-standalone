@@ -54,7 +54,7 @@ public class GUI extends Application {
 	@FXML private TextField tf_country;
 	@FXML private ChoiceBox<String> cb_type;
 	@FXML private ChoiceBox<String> cb_usernameOrNatId;
-	@FXML private ChoiceBox<String> cb_time;
+	@FXML private ChoiceBox<String> cb_times;
 	@FXML private TextField tf_username;
 	@FXML private GridPane gp_main;
 	@FXML private TableView<Appointment> tv_available;
@@ -370,7 +370,7 @@ public class GUI extends Application {
 		AppointmentScheduling.addAppointment(MedicalSurgeryManager.getConnection(),		
 			new Appointment(
 					java.sql.Date.valueOf(dp_appointment_date.getValue()),
-					java.sql.Time.valueOf(cb_time.getValue()),
+					java.sql.Time.valueOf(cb_times.getValue()),
 					Registration.getPatientIdByUsername(currentUserName),
 					AppointmentScheduling.getAvailableDoctor()
 					));
@@ -427,13 +427,69 @@ public class GUI extends Application {
 	//show to appointment scheduling window
 	public void showAppointmentScheduling(ActionEvent action) 
 	{
-		try {			
-			Parent root = FXMLLoader.load(getClass().getResource("ScheduleAppointment.fxml"));
-			window.setTitle("Dashboard");
-			window.setScene(new Scene(root,720,560));
-		}catch (Exception e) {
-			System.out.println(e);
-		}		
+		//create and display scheduling window at run time
+		GridPane root = new GridPane();
+		
+		root.setVgap(20);
+		root.setHgap(20);
+		root.setAlignment(Pos.CENTER);
+		
+		Label lb_date = new Label("date: ");
+		root.setConstraints(lb_date, 0, 0);
+		
+		DatePicker dp = new DatePicker();
+		root.setConstraints(dp, 1, 0);
+		
+		Label lb_time = new Label("time: ");
+		root.setConstraints(lb_time, 0, 1);
+		
+		ChoiceBox<String> cb = new ChoiceBox<>();
+		root.setConstraints(cb, 1, 1);
+		
+		dp.setOnAction(e->{
+			cb.getItems().clear();
+			for(Object t : AppointmentScheduling.getAvailableTimesOnDate(
+					MedicalSurgeryManager.getConnection(),
+					java.sql.Date.valueOf(dp.getValue()))) {
+					cb.getItems().add(t.toString()+":00");
+			}});
+		
+		dp.setValue(LocalDate.now());
+		for(Object t : AppointmentScheduling.getAvailableTimesOnDate(
+				MedicalSurgeryManager.getConnection(),
+				java.sql.Date.valueOf(dp.getValue()))) {
+				cb.getItems().add(t.toString()+":00");
+		}
+		
+		Button btnClose = new Button("Close");
+		Button btnSubmit = new Button("Submit");
+		
+		root.setConstraints(btnSubmit, 1, 2);
+		root.setConstraints(btnClose, 2, 2);
+		
+		btnSubmit.setOnAction(e->{
+			//go back to previous window
+			AppointmentScheduling.addAppointment(MedicalSurgeryManager.getConnection(),		
+					new Appointment(
+							java.sql.Date.valueOf(dp.getValue()),
+							java.sql.Time.valueOf(cb.getValue()),
+							Registration.getPatientIdByUsername(currentUserName),
+							AppointmentScheduling.getAvailableDoctor()
+							));
+			cb.getItems().clear();
+			for(Object t : AppointmentScheduling.getAvailableTimesOnDate(
+					MedicalSurgeryManager.getConnection(),
+					java.sql.Date.valueOf(dp.getValue()))) {
+					cb.getItems().add(t.toString()+":00");
+			}
+		});
+		
+		btnClose.setOnAction(e->{
+			//go back to previous window
+			selectDashBoard(currentUserName);
+		});
+		root.getChildren().addAll(lb_date,dp,lb_time,cb,btnClose,btnSubmit);
+		window.setScene(new Scene(root,1280,720));
 	}
 	
 	//Log out of system i.e. show login screen

@@ -42,30 +42,10 @@
 		GridPane.rowIndex="2"
 		GridPane.columnIndex="0"/>		
 	<ChoiceBox
-		fx:id="cb_time"
-		value="08:00:00"
+		fx:id="cb_times"
 		GridPane.rowIndex="2"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT">
-	    <items>
-	        <FXCollections fx:id="options"
-	        	fx:factory="observableArrayList">
-	            <String fx:value="08:00:00" />
-	            <String fx:value="08:30:00" />
-	            <String fx:value="09:00:00" />
-	            <String fx:value="09:30:00" />
-	            <String fx:value="10:00:00" />
-	            <String fx:value="10:30:00" />
-	            <String fx:value="11:00:00" />
-	            <String fx:value="11:30:00" />
-	            <String fx:value="12:00:00" />
-	            <String fx:value="12:30:00" />
-	            <String fx:value="14:00:00" />
-	            <String fx:value="14:30:00" />
-	            <String fx:value="15:00:00" />
-	            <String fx:value="15:30:00" />
-	        </FXCollections>
-	    </items>
 	</ChoiceBox>
 		
 	<Button text="schedule appointment"
