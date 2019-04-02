@@ -16,7 +16,8 @@
 	<Button text="New appointment"
 		GridPane.rowIndex="0"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.halignment="RIGHT"
+		onAction="#showAppointmentScheduling"/>
 	
 	<Button text="View appointments"
 		GridPane.rowIndex="1"
@@ -24,18 +25,8 @@
 		GridPane.halignment="RIGHT"
 		onAction="#displayAppointments"/>
 		
-	<Button text="Cancel appointment"
-		GridPane.rowIndex="2"
-		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
-		
 	<Button text="View patient bills"
 		GridPane.rowIndex="3"
-		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
-		
-	<Button text="View available times"
-		GridPane.rowIndex="4"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"/>
 		

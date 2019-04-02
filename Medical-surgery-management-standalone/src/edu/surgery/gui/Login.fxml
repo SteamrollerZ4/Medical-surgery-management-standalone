@@ -12,8 +12,8 @@
 				fx:controller="edu.surgery.gui.GUI"
 				fx:id="gp_main"
 				alignment="CENTER"
-				hgap="2"
-				vgap="2">
+				hgap="20"
+				vgap="20">
 		
 	<Label  text="username:"
 		GridPane.rowIndex="2"
@@ -36,7 +36,7 @@
 		GridPane.columnIndex="0"/>		
 	<Button text="signin"
 		GridPane.rowIndex="4"
-		GridPane.columnIndex="1"
+		GridPane.columnIndex="2"
 		GridPane.halignment="RIGHT"
 		onAction="#signin"/>
 		

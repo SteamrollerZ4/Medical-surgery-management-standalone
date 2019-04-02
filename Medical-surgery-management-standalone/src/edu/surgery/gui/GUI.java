@@ -64,7 +64,7 @@ public class GUI extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		window = primaryStage;
 		window.setTitle("Login");
-		window.setScene(new Scene(root,300,275));
+		window.setScene(new Scene(root,1280,720));
 		window.show();
 	}
 	
@@ -79,7 +79,7 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("NewUser.fxml"));
 			window.setTitle("Create user");
-			window.setScene(new Scene(root,600,275));
+			window.setScene(new Scene(root,1280,720));
 		}catch (Exception e) {
 			System.out.println(e);
 		}
@@ -181,6 +181,10 @@ public class GUI extends Application {
 	
 	//sigin button callback
 	public void signin(ActionEvent actionEvent)	{
+		if(tf_user.getText().isEmpty() || tf_pass.getText().isEmpty()) {
+			lb_status.setText("all fields are required");
+			return;
+		}
 		if(userLogin(tf_user.getText(), tf_pass.getText())){
 			currentUserName=tf_user.getText();
 			lb_status.setText("login successful");
@@ -446,17 +450,30 @@ public class GUI extends Application {
 		root.setHgap(20);
 		root.setAlignment(Pos.CENTER);
 		
+		Label lb_username = new Label("username: ");
+		root.setConstraints(lb_username, 0, 0);
+		
+		TextField tf_username = new TextField();
+		tf_username.setPromptText("username");
+		root.setConstraints(tf_username, 1, 0);
+		
+		//if current user is patient, set patient id automatically
+		if(Registration.getUserType(currentUserName).equals("Patient")) {
+			tf_username.setText(currentUserName);
+			tf_username.setDisable(true);
+		}
+		
 		Label lb_date = new Label("date: ");
-		root.setConstraints(lb_date, 0, 0);
+		root.setConstraints(lb_date, 0, 1);
 		
 		DatePicker dp = new DatePicker();
-		root.setConstraints(dp, 1, 0);
+		root.setConstraints(dp, 1, 1);
 		
 		Label lb_time = new Label("time: ");
-		root.setConstraints(lb_time, 0, 1);
+		root.setConstraints(lb_time, 0, 2);
 		
 		ChoiceBox<String> cb = new ChoiceBox<>();
-		root.setConstraints(cb, 1, 1);
+		root.setConstraints(cb, 1, 2);
 		
 		dp.setOnAction(e->{
 			cb.getItems().clear();
@@ -476,8 +493,8 @@ public class GUI extends Application {
 		Button btnClose = new Button("Close");
 		Button btnSubmit = new Button("Submit");
 		
-		root.setConstraints(btnSubmit, 1, 2);
-		root.setConstraints(btnClose, 2, 2);
+		root.setConstraints(btnSubmit, 2, 3);
+		root.setConstraints(btnClose, 3, 3);
 		
 		btnSubmit.setOnAction(e->{
 			//go back to previous window
@@ -485,7 +502,7 @@ public class GUI extends Application {
 					new Appointment(
 							java.sql.Date.valueOf(dp.getValue()),
 							java.sql.Time.valueOf(cb.getValue()),
-							Registration.getPatientIdByUsername(currentUserName),
+							Registration.getPatientIdByUsername(tf_username.getText()),
 							AppointmentScheduling.getAvailableDoctor()
 							));
 			cb.getItems().clear();
@@ -500,7 +517,7 @@ public class GUI extends Application {
 			//go back to previous window
 			selectDashBoard(currentUserName);
 		});
-		root.getChildren().addAll(lb_date,dp,lb_time,cb,btnClose,btnSubmit);
+		root.getChildren().addAll(lb_username,tf_username,lb_date,dp,lb_time,cb,btnClose,btnSubmit);
 		window.setScene(new Scene(root,1280,720));
 	}
 	
@@ -511,8 +528,7 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			window.setTitle("Login");
-			window.setScene(new Scene(root,300,275));
-			window.centerOnScreen();
+			window.setScene(new Scene(root,1280,720));			
 		}catch(Exception e) {
 			System.out.println(e);
 		}

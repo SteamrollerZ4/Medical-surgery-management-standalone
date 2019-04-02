@@ -18,24 +18,52 @@ public class Bill{
         this.appointmentId = appointmentId;
         this.billAmount = new BigDecimal(billAmount);
     }
-    
-    public void setBillId(int billId) 
-    {
-    	this.billId = billId;
-    }
-    
-    public void addAmount(String billAmount)
-    {
-        this.billAmount.add(new BigDecimal(billAmount));
-    }
-    
-    public void subtractAmount(String billAmount)
-    {
-        this.billAmount.subtract(new BigDecimal(billAmount));
-    }
-    
-    public BigDecimal getAmount()
-    {
-        return billAmount;
-    }
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public int getBillId() {
+		return billId;
+	}
+
+	public int getPatientId() {
+		return patientId;
+	}
+
+	public int getDoctorId() {
+		return doctorId;
+	}
+
+	public int getAppointmentId() {
+		return appointmentId;
+	}
+
+	public BigDecimal getBillAmount() {
+		return billAmount;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public void setBillId(int billId) {
+		this.billId = billId;
+	}
+
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
+	}
+
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
+	}
+
+	public void setAppointmentId(int appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public void setBillAmount(BigDecimal billAmount) {
+		this.billAmount = billAmount;
+	}
 }
