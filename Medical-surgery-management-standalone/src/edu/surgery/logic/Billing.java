@@ -19,8 +19,7 @@ public class Billing{
         }
     }
     
-    public static BigDecimal getTotalBill(int patientId)
-    {
+    public static BigDecimal getTotalBill(int patientId)    {
         try{
                 String query = "SELECT billAmount FROM bill WHERE patientId = '" + patientId+"'";
                 Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
@@ -50,9 +49,30 @@ public class Billing{
         return bills.toArray();
     }
     
+    
     public static Object[] getBillsByDateAndDoctorId(LocalDate data, int patientId){
         ArrayList<Bill> bills = new ArrayList<>();
         
+        return bills.toArray();
+    }
+    
+    public static Object[] getBillsByPatientId(int patientId) {
+    	ArrayList<Bill> bills = new ArrayList<>();
+        try {
+	        String query = "SELECT * FROM bill WHERE doctorId = '" + patientId + "'";	        
+	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+	        ResultSet rs = stmt.executeQuery(query);
+	        
+	        while(rs.next()) 
+	        {
+	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	bill.setBillId(rs.getInt("billId"));
+	        	bills.add(bill);
+	        }
+        }
+        catch (SQLException e) {
+			System.out.println(e);
+		}        
         return bills.toArray();
     }
     
@@ -74,10 +94,6 @@ public class Billing{
         catch (SQLException e) {
 			System.out.println(e);
 		}
-        finally {
-        	        	
-        }
-        
         return bills.toArray();
     }
 

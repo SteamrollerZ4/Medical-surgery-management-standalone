@@ -22,7 +22,8 @@
 	<Button text="Appointments"
 		GridPane.rowIndex="1"
 		GridPane.columnIndex="0"
-		GridPane.halignment="RIGHT"/>
+		GridPane.halignment="RIGHT"
+		onAction="#displayAppointments"/>
 		
 	<Button text="Bills"
 		GridPane.rowIndex="2"

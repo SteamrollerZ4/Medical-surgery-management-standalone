@@ -21,7 +21,8 @@
 	<Button text="View appointments"
 		GridPane.rowIndex="1"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.halignment="RIGHT"
+		onAction="#displayAppointments"/>
 		
 	<Button text="Cancel appointment"
 		GridPane.rowIndex="2"
@@ -39,12 +40,12 @@
 		GridPane.halignment="RIGHT"/>
 		
 	<Button text="Bill patient"
-		GridPane.rowIndex="0"
+		GridPane.rowIndex="5"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"/>
 		
 	<Button text="logout"
-		GridPane.rowIndex="14"
+		GridPane.rowIndex="6"
 		GridPane.columnIndex="1"
 		GridPane.halignment="RIGHT"
 		onAction="#logout"/>

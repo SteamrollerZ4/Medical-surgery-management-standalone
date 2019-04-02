@@ -176,7 +176,7 @@ public class GUI extends Application {
 				System.out.println(e);
 			}
 			break;
-	}
+		}
 	}
 	
 	//sigin button callback
@@ -378,8 +378,23 @@ public class GUI extends Application {
 	{
 		ObservableList<Appointment> apps = FXCollections.observableArrayList();
 		
-		for(Object a : AppointmentScheduling.getAppointments(MedicalSurgeryManager.getConnection()))
-				apps.add((Appointment) a);
+		switch (Registration.getUserType(currentUserName)) {
+		case "Doctor":
+			for(Object a : AppointmentScheduling.getAppointmentsByDoctorId(Registration.getDoctorIdByUsername(currentUserName)))
+				apps.add((Appointment)a);
+			break;
+		case "Patient":
+			for(Object a : AppointmentScheduling.getAppointmentsByPatientId(Registration.getPatientIdByUsername(currentUserName)))
+				apps.add((Appointment)a);
+			break;
+		case "Receptionist":
+			for(Object a : AppointmentScheduling.getAppointments())
+				apps.add((Appointment)a);
+			break;
+		default:
+			break;
+		}
+
 	
 		//Patient full name column
 		TableColumn<Appointment, String> patientFullName = new TableColumn<>("Patient");
@@ -492,6 +507,14 @@ public class GUI extends Application {
 	//Log out of system i.e. show login screen
 	public void logout(ActionEvent action) 
 	{
-		
+		currentUserName=null;
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			window.setTitle("Login");
+			window.setScene(new Scene(root,300,275));
+			window.centerOnScreen();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 }

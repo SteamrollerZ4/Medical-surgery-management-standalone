@@ -53,17 +53,15 @@ public class Registration
              
              //Check if user is of type patient
              query = "SELECT patientId FROM patient WHERE username = '"+userName+"'";
-             stmt = MedicalSurgeryManager.getConnection().createStatement();
              rs = stmt.executeQuery(query);
              if(rs.next())//true if user has been found            	 
             	 return "Patient";
              
              //Check if user is of type receptionist
              query = "SELECT receptionistId FROM receptionist WHERE username = '"+userName+"'";
-             stmt = MedicalSurgeryManager.getConnection().createStatement();
              rs = stmt.executeQuery(query);
              if(rs.next())//true if user has been found            	 
-            	 return "Patient";             
+            	 return "Receptionist";             
          }
          catch(SQLException e)
          {
@@ -92,8 +90,25 @@ public class Registration
          }
     	 return true;
     }
+    public static Integer getDoctorIdByUsername(String username) {
+    	try{
+            String query = "SELECT doctorId FROM doctor where username = '"+username+"'";
+            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);             
+            
+            if(rs.next())
+            {
+           	 return rs.getInt("doctorId");
+            }            
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+        }
+    	return null;
+    }
     
-    public static int getPatientIdByUsername(String username) {
+    public static Integer getPatientIdByUsername(String username) {
     	try{
             String query = "SELECT patientId FROM patient where username = '"+username+"'";
             Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
@@ -109,7 +124,7 @@ public class Registration
         {
             System.out.println(e);
         }
-    	return -1;
+    	return null;
     }
     //Used to get patient id by national id
     public static int getPatientIdByNationalId(String nationalId)
