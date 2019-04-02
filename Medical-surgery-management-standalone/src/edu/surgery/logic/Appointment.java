@@ -9,6 +9,8 @@ public class Appointment
     private int doctorId;
     private Date appointmentDate;
     private Time appointmentTime;
+    private String patientFullName;
+    private String doctorFullName;
     
     public Appointment(Date appointmentDate, Time appointmentTime, int patientId, int doctorId)
     {
@@ -17,6 +19,7 @@ public class Appointment
         this.patientId = patientId;
         this.doctorId = doctorId;
     }
+    
     
     //setters
     public void setAppointmentId(int appointmentId)    {
@@ -34,10 +37,18 @@ public class Appointment
     public void setAppointmentTime(Time time) {
     	this.appointmentTime = appointmentTime;
     }
+    public void setPatientFullName(String patientFullName) {
+    	this.patientFullName = patientFullName;
+    }
+    public void setDoctorFullName(String doctorFullName) {
+    	this.doctorFullName = doctorFullName;
+    }
     //getters
-    public int getPatientId(){        return patientId;    }    
+    public int getPatientId(){        return patientId;    }
     public int getAppointmentId ()    {        return appointmentId;    }    
     public int getDoctorId ()    {        return doctorId;    }    
     public Date getAppointmentDate ()    {        return appointmentDate;    }    
     public Time getAppointmentTime ()    {        return appointmentTime;    }
+    public String getPatientFullName() {return patientFullName;}
+    public String getDoctorFullName() {  	return doctorFullName;    }
 }

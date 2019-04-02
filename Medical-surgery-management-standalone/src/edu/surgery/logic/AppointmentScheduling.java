@@ -117,14 +117,28 @@ public class AppointmentScheduling
             
             ArrayList<Appointment> appointmentsList = new ArrayList<>();
             
-            while(rs.next()){            	
+            while(rs.next()){          	
             	Appointment app =  new Appointment(
                         rs.getDate("appointmentDate"),
                         rs.getTime("appointmentTime"),
                         rs.getInt("patientId"),
                         rs.getInt("doctorId")
                         );
-    			app.setAppointmentId(rs.getInt("appointmentId"));            	
+    			app.setAppointmentId(rs.getInt("appointmentId"));
+    			//get patient's full name
+    			String _query = "SELECT patientName,patientSurname FROM patient WHERE patientId = '"+rs.getInt("patientId")+"'";
+	            Statement _stmt = conn.createStatement();
+	            ResultSet _rs = _stmt.executeQuery(_query);
+	            if(_rs.next()) {
+	            	app.setPatientFullName(_rs.getString("patientName")+" "+ _rs.getString("patientSurname"));
+	            }
+    			//get doctor's full name
+	            _query = "SELECT doctorName,doctorSurname FROM doctor WHERE doctorId = '"+rs.getInt("doctorId")+"'";
+	            _stmt = conn.createStatement();
+	            _rs = _stmt.executeQuery(_query);
+	            if(_rs.next()) {
+	            	app.setDoctorFullName(_rs.getString("doctorName")+" "+ _rs.getString("doctorSurname"));
+	            }
                 appointmentsList.add(app);
                 }
             return appointmentsList.toArray();

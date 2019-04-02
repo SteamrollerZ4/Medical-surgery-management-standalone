@@ -146,8 +146,7 @@ public class GUI extends Application {
 		switch(Registration.getUserType(currentUserName)) {
 		case "Doctor":
 			//show doctor dashboard
-			try {
-				
+			try {				
 				Parent root = FXMLLoader.load(getClass().getResource("DashboardDoctor.fxml"));
 				window.setTitle("Dashboard");
 				window.setScene(new Scene(root,1280,720));
@@ -203,7 +202,7 @@ public class GUI extends Application {
 		}		
 	}
 	
-	//returns true if loggin was successful. Not a button callback function.
+	//returns true if loggin was successful. Not a button callback method.
 	public static boolean userLogin(String username ,String password){
 		try {
 			if(Registration.checkIfAvailabe(username))//If specified user does exist, throw exception
@@ -335,7 +334,10 @@ public class GUI extends Application {
 		
 			if(tf_pass_ori.getText().equals(tf_pass_con.getText())) {
 				if(!Registration.createUserameAndPass(tf_username.getText(),  tf_pass_ori.getText()))
-					return;
+					{	
+						lb_status.setText("Username is taken.");
+						return;
+					}
 				
 				try {
 					currentUserName = tf_username.getText();
@@ -360,11 +362,6 @@ public class GUI extends Application {
 				java.sql.Date.valueOf(dp_appointment_date.getValue()));
 	}
 	
-	//Close the appointmentview window and go back to dashboard
-	public void closeAppintmentView(ActionEvent action) {
-		
-	}
-	
 	//Schedule appointment, create appointment button callback
 	public void scheduleAppointment(ActionEvent action){
 		AppointmentScheduling.addAppointment(MedicalSurgeryManager.getConnection(),		
@@ -383,15 +380,15 @@ public class GUI extends Application {
 		
 		for(Object a : AppointmentScheduling.getAppointments(MedicalSurgeryManager.getConnection()))
 				apps.add((Appointment) a);
-		
-		//Patient id column
-		TableColumn<Appointment, Integer> patientId = new TableColumn<>("PatientId");
-		patientId.setMinWidth(200);
-		patientId .setCellValueFactory(new PropertyValueFactory<>("patientId"));
-		//Doctor id column
-		TableColumn<Appointment, Integer> doctorId = new TableColumn<>("DoctorId");
-		doctorId.setMinWidth(200);
-		doctorId .setCellValueFactory(new PropertyValueFactory<>("doctorId"));
+	
+		//Patient full name column
+		TableColumn<Appointment, String> patientFullName = new TableColumn<>("Patient");
+		patientFullName.setMinWidth(200);
+		patientFullName .setCellValueFactory(new PropertyValueFactory<>("patientFullName"));
+		//Doctor full name column
+		TableColumn<Appointment, String> doctorFullName = new TableColumn<>("Doctor");
+		doctorFullName.setMinWidth(200);
+		doctorFullName .setCellValueFactory(new PropertyValueFactory<>("doctorFullName"));
 		//Date column
 		TableColumn<Appointment, java.sql.Date> date = new TableColumn<>("Date");
 		date.setMinWidth(200);
@@ -406,7 +403,7 @@ public class GUI extends Application {
 		id .setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
 		tv_available = new TableView<Appointment>();
 		tv_available.setItems(apps);
-		tv_available.getColumns().addAll(patientId,doctorId,date,time,id);
+		tv_available.getColumns().addAll(patientFullName,doctorFullName,date,time,id);
 		GridPane root = new GridPane();
 		
 		root.setVgap(20);
