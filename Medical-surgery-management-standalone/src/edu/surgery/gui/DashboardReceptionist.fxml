@@ -28,12 +28,14 @@
 	<Button text="View patient bills"
 		GridPane.rowIndex="3"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.halignment="RIGHT"
+		onAction="#showBills"/>
 		
 	<Button text="Bill patient"
 		GridPane.rowIndex="5"
 		GridPane.columnIndex="1"
-		GridPane.halignment="RIGHT"/>
+		GridPane.halignment="RIGHT"
+		onAction="#billPatient"/>
 		
 	<Button text="logout"
 		GridPane.rowIndex="6"

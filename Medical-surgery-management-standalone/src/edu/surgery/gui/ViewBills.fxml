@@ -23,7 +23,10 @@
 		GridPane.columnIndex="3"
 		GridPane.rowIndex="0"
 		GridPane.halignment="RIGHT"/>
-		
+	
+	<TableView	fx:id="tv_bills"
+		GridPane.columnIndex="0"
+		GridPane.rowIndex="1"/>
 		
 	<Button text="close"
 		GridPane.rowIndex="2"

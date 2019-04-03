@@ -1,27 +1,29 @@
 package edu.surgery.logic;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.sql.Date;
 import java.math.BigDecimal;//For accurate representation of currency values
 
 public class Bill{
-    private LocalDateTime dateTime;
+    private Date billDate;
+    private Time billTime;
     private int billId;
     private int patientId;
     private int doctorId;
     private int appointmentId;
     private BigDecimal billAmount;
+    private String patientFullName;
+    private String doctorFullName;
     
-    public Bill(LocalDateTime dateTime,int doctorId ,int patientId, int appointmentId ,String billAmount){
-        this.dateTime = dateTime;
+    public Bill(Date billDate,Time billTime,int doctorId ,int patientId, int appointmentId ,String billAmount){
+        this.billDate = billDate;
+        this.billTime = billTime;
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.appointmentId = appointmentId;
         this.billAmount = new BigDecimal(billAmount);
     }
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
 
 	public int getBillId() {
 		return billId;
@@ -42,9 +44,32 @@ public class Bill{
 	public BigDecimal getBillAmount() {
 		return billAmount;
 	}
+	
+	public String getPatientFullName() {
+		return patientFullName;
+	}
 
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
+
+	public String getDoctorFullName() {
+		return doctorFullName;
+	}
+	public Date getBillDate() {
+		return billDate;
+	}
+
+
+	public Time getBillTime() {
+		return billTime;
+	}
+	
+
+	public void setBillDate(Date billDate) {
+		this.billDate = billDate;
+	}
+
+
+	public void setBillTime(Time billTime) {
+		this.billTime = billTime;
 	}
 
 	public void setBillId(int billId) {
@@ -66,4 +91,14 @@ public class Bill{
 	public void setBillAmount(BigDecimal billAmount) {
 		this.billAmount = billAmount;
 	}
+
+	public void setPatientFullName(String patientFullName) {
+		this.patientFullName = patientFullName;
+	}
+
+
+	public void setDoctorFullName(String doctorFullName) {
+		this.doctorFullName = doctorFullName;
+	}
+
 }

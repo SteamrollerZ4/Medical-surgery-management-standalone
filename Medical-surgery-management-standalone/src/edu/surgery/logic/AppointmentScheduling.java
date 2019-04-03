@@ -18,6 +18,41 @@ public class AppointmentScheduling
     return false;
     }
     
+    //returns patient id given appointment id
+    public static Integer getPatientId(String appointmentId) {
+    	try{
+            String query = "SELECT patientId FROM appointment WHERE appointmentId = '"+appointmentId+"'";
+            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if(rs.next())
+            {
+            	return rs.getInt("patientId");
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    	return null;
+    }
+    //returns doctor id given appointment id
+    public static Integer getDoctorId(String appointmentId) {
+    	try{
+            String query = "SELECT doctorId FROM appointment WHERE appointmentId = '"+appointmentId+"'";
+            Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if(rs.next())
+            {
+            	return rs.getInt("doctorId");
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    	return null;
+    }
+    
     //returns array of available times on a particular date
     public static Object[] getAvailableTimesOnDate(Connection conn, java.sql.Date date)
     {

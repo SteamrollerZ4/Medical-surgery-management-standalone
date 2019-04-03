@@ -34,7 +34,8 @@ public class Billing{
 	        
 	        if(rs.next()) 
 	        {
-	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
 	        	return bill;
 	        }
@@ -74,7 +75,8 @@ public class Billing{
 	        
 	        while(rs.next()) 
 	        {
-	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
 	        	bills.add(bill);
 	        }
@@ -96,7 +98,8 @@ public class Billing{
 	        
 	        while(rs.next()) 
 	        {
-	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
 	        	bills.add(bill);
 	        }
@@ -119,7 +122,8 @@ public class Billing{
 	        
 	        while(rs.next()) 
 	        {
-	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
 	        	bills.add(bill);
 	        }
@@ -141,7 +145,8 @@ public class Billing{
 	        
 	        while(rs.next()) 
 	        {
-	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
 	        	bills.add(bill);
 	        }
@@ -155,6 +160,46 @@ public class Billing{
         	return null;
     }
     
+    //get all bills in the system
+    public static Object[] getBills() 
+    {
+    	 ArrayList<Bill> bills = new ArrayList<>();
+         try {
+ 	        String query = "SELECT * FROM bill";	        
+ 	        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+ 	        ResultSet rs = stmt.executeQuery(query);
+ 	        
+ 	        while(rs.next()) 
+ 	        {
+ 	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+ 	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+ 	        	bill.setBillId(rs.getInt("billId"));
+ 	        	//get patient's full name
+    			String _query = "SELECT patientName,patientSurname FROM patient WHERE patientId = '"+rs.getInt("patientId")+"'";
+	            Statement _stmt = MedicalSurgeryManager.getConnection().createStatement();
+	            ResultSet _rs = _stmt.executeQuery(_query);
+	            if(_rs.next()) {
+	            	bill.setPatientFullName(_rs.getString("patientName")+" "+ _rs.getString("patientSurname"));
+	            }
+    			//get doctor's full name
+	            _query = "SELECT doctorName,doctorSurname FROM doctor WHERE doctorId = '"+rs.getInt("doctorId")+"'";
+	            _stmt = MedicalSurgeryManager.getConnection().createStatement();
+	            _rs = _stmt.executeQuery(_query);
+	            if(_rs.next()) {
+	            	bill.setDoctorFullName(_rs.getString("doctorName")+" "+ _rs.getString("doctorSurname"));
+	            }
+ 	        	bills.add(bill);
+ 	        }
+         }
+         catch (SQLException e) {
+ 			System.out.println(e);
+ 		}
+         if (bills.size()>0)
+         	return bills.toArray();
+         else
+         	return null;
+    }
+    
     public static Object[] getBillsByDoctorId(int doctorId)
     {
         ArrayList<Bill> bills = new ArrayList<>();
@@ -165,7 +210,8 @@ public class Billing{
 	        
 	        while(rs.next()) 
 	        {
-	        	Bill bill = new Bill(LocalDateTime.of(rs.getDate("billDate").toLocalDate(), rs.getTime("billTime").toLocalTime()),rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
+	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
+	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
 	        	bills.add(bill);
 	        }

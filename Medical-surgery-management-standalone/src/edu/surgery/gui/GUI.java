@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.swing.GroupLayout.Alignment;
+
 import edu.surgery.logic.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,8 +16,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -144,6 +149,7 @@ public class GUI extends Application {
 				createPatient(pat);
 				break;			
 		}
+		selectDashBoard(currentUserName);
 	}
 	
 	void selectDashBoard(String currentUserName) {
@@ -445,13 +451,13 @@ public class GUI extends Application {
 		root.setHgap(20);
 		root.setAlignment(Pos.CENTER);
 		
-		root.setConstraints(tv_available, 0, 0);
+		GridPane.setConstraints(tv_available, 0, 0);
 		Button btnClose = new Button("Close");
 		btnClose.setOnAction(e->{
 			//go back to previous window
 			selectDashBoard(currentUserName);
 		});
-		root.setConstraints(btnClose, 1, 1);
+		GridPane.setConstraints(btnClose, 1, 1);
 		root.getChildren().addAll(tv_available,btnClose);
 		Scene scene = new Scene(root,1280,720);
 		scene.getStylesheets().add("/edu/surgery/gui/main.css");		
@@ -469,11 +475,11 @@ public class GUI extends Application {
 		root.setAlignment(Pos.CENTER);
 		
 		Label lb_username = new Label("username: ");
-		root.setConstraints(lb_username, 0, 0);
+		GridPane.setConstraints(lb_username, 0, 0);
 		
 		TextField tf_username = new TextField();
 		tf_username.setPromptText("username");
-		root.setConstraints(tf_username, 1, 0);
+		GridPane.setConstraints(tf_username, 1, 0);
 		
 		//if current user is patient, set patient id automatically
 		if(Registration.getUserType(currentUserName).equals("Patient")) {
@@ -482,16 +488,16 @@ public class GUI extends Application {
 		}
 		
 		Label lb_date = new Label("date: ");
-		root.setConstraints(lb_date, 0, 1);
+		GridPane.setConstraints(lb_date, 0, 1);
 		
 		DatePicker dp = new DatePicker();
-		root.setConstraints(dp, 1, 1);
+		GridPane.setConstraints(dp, 1, 1);
 		
 		Label lb_time = new Label("time: ");
-		root.setConstraints(lb_time, 0, 2);
+		GridPane.setConstraints(lb_time, 0, 2);
 		
 		ChoiceBox<String> cb = new ChoiceBox<>();
-		root.setConstraints(cb, 1, 2);
+		GridPane.setConstraints(cb, 1, 2);
 		
 		dp.setOnAction(e->{
 			cb.getItems().clear();
@@ -511,8 +517,8 @@ public class GUI extends Application {
 		Button btnClose = new Button("Close");
 		Button btnSubmit = new Button("Submit");
 		
-		root.setConstraints(btnSubmit, 2, 3);
-		root.setConstraints(btnClose, 3, 3);
+		GridPane.setConstraints(btnSubmit, 2, 3);
+		GridPane.setConstraints(btnClose, 3, 3);
 		
 		btnSubmit.setOnAction(e->{
 			//go back to previous window
@@ -564,15 +570,109 @@ public class GUI extends Application {
 	//show bills for patient
 	public void showBills(ActionEvent event)
 	{
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("ViewBills.fxml"));
-			window.setTitle("Bills");
-			Scene scene = new Scene(root,1280,720);
-			scene.getStylesheets().add("/edu/surgery/gui/main.css");		
-			window.setScene(scene);			
-		}catch(Exception e) {
-			System.out.println(e);
-		}
+		//create and display scheduling window at run time
+		GridPane root = new GridPane();
+		
+		root.setVgap(20);
+		root.setHgap(20);
+		root.setAlignment(Pos.CENTER);
+		
+		ObservableList<Bill> bills = FXCollections.observableArrayList();
+		
+		//get bills from database
+		for(Object b : Billing.getBills())
+			bills.add((Bill)b);
+		
+		//Date column
+		TableColumn<Bill, java.sql.Date> date = new TableColumn<>("Date");
+		date.setMinWidth(200);
+		date.setCellValueFactory(new PropertyValueFactory<>("billDate"));
+		//Time column
+		TableColumn<Bill, java.sql.Time> time = new TableColumn<>("Time");
+		time.setMinWidth(200);
+		time.setCellValueFactory(new PropertyValueFactory<>("billTime"));
+		//Patient full name column
+		TableColumn<Bill, String> patientFullName = new TableColumn<>("Patient");
+		patientFullName.setMinWidth(200);
+		patientFullName .setCellValueFactory(new PropertyValueFactory<>("patientFullName"));
+		//Doctor full name column
+		TableColumn<Bill, String> doctorFullName = new TableColumn<>("Doctor");
+		doctorFullName.setMinWidth(200);
+		doctorFullName .setCellValueFactory(new PropertyValueFactory<>("doctorFullName"));
+		//Bill amount column
+		TableColumn<Bill, String> amount = new TableColumn<>("Amount");
+		amount.setMinWidth(200);
+		amount .setCellValueFactory(new PropertyValueFactory<>("billAmount"));
+
+		TableView<Bill> tv_bills = new TableView<Bill>();
+		tv_bills.setItems(bills);
+		tv_bills.getColumns().addAll(date, time, patientFullName,doctorFullName,amount);
+		
+		Button btn_close = new Button("close");
+		GridPane.setConstraints(btn_close, 4, 2);
+		
+		root.getChildren().addAll(tv_bills,btn_close);
+		
+		btn_close.setOnAction(e->{
+			//go back to previous window
+			selectDashBoard(currentUserName);
+		});
+		
+		Scene scene = new Scene(root,1280,720);
+		scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+		window.setScene(scene);
+	}
+	
+	//show patient billing view
+	public void billPatient(ActionEvent event) {
+		//create and display scheduling window at run time
+		GridPane root = new GridPane();
+		
+		root.setVgap(20);
+		root.setHgap(20);
+		root.setAlignment(Pos.CENTER);
+		
+		TextField tf_appointmentId = new TextField();
+		tf_appointmentId.setPromptText("appointment id");
+		GridPane.setConstraints(tf_appointmentId, 0, 0, 2, 1);
+		
+		TextField tf_amount = new TextField();
+		tf_amount.setPromptText("amount");
+		GridPane.setConstraints(tf_amount, 0, 1, 2, 1);
+		
+		
+		Button btn_submit = new Button("submit"), btn_close = new Button("close");
+		GridPane.setConstraints(btn_close, 0, 2);
+		GridPane.setConstraints(btn_submit, 1, 2);
+		
+		root.getChildren().addAll(tf_appointmentId,
+				tf_amount,btn_submit,btn_close);
+		
+		btn_submit.setOnAction(e->{
+			//update bill table
+			try {
+	            String query = "INSERT INTO bill (billDate, billTime, doctorId ,patientId, appointmentId, billAmount) VALUES ('"+
+        		LocalDate.now()+"','"+LocalTime.now()+"','"
+	        	+AppointmentScheduling.getDoctorId(tf_appointmentId.getText())+"','"+
+	        	AppointmentScheduling.getPatientId(tf_appointmentId.getText())+"','"+
+	        	tf_appointmentId.getText()+"','"+tf_amount.getText()+"')";	            
+		        Statement stmt = MedicalSurgeryManager.getConnection().createStatement();
+		        stmt.executeUpdate(query);
+			}catch (SQLException ex) {
+				System.out.println(ex);
+			}
+			//go back to previous window
+			selectDashBoard(currentUserName);
+		});
+		
+		btn_close.setOnAction(e->{
+			//go back to previous window
+			selectDashBoard(currentUserName);
+		});
+		
+		Scene scene = new Scene(root,1280,720);
+		scene.getStylesheets().add("/edu/surgery/gui/main.css");
+		window.setScene(scene);
 	}
 	
 	//show receipts for patient
