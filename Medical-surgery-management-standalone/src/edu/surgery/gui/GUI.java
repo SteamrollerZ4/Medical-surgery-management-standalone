@@ -70,12 +70,12 @@ public class GUI extends Application {
 		window = primaryStage;
 		window.setTitle("Login");
 		Scene scene = new Scene(root,1280,720);
-		scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+		scene.getStylesheets().add("edu/surgery/gui/main.css");
 		window.setScene(scene);
 		window.show();
 	}
 	
-	public static void main(String args[]) 
+	public static void main(String[] args)
 	{
 		launch(args);
 	}
@@ -152,7 +152,7 @@ public class GUI extends Application {
 		selectDashBoard(currentUserName);
 	}
 	
-	void selectDashBoard(String currentUserName) {
+	private void selectDashBoard(String currentUserName) {
 		switch(Registration.getUserType(currentUserName)) {
 		case "Doctor":
 			//show doctor dashboard
@@ -227,7 +227,7 @@ public class GUI extends Application {
 	}
 	
 	//returns true if loggin was successful. Not a button callback method.
-	public static boolean userLogin(String username ,String password){
+	private static boolean userLogin(String username ,String password){
 		try {
 			if(Registration.checkIfAvailabe(username))//If specified user does exist, throw exception
 	    		throw new UserNotFound();
@@ -251,15 +251,14 @@ public class GUI extends Application {
             		throw new PasswordWrong();
         	}
 			
-		}catch(UserNotFound e) {
-			System.out.println(e);
-		}
-		catch (PasswordWrong e) {
-			System.out.println(e);
 		}
 		catch (SQLException e) {
 			System.out.println(e);
 		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+
 
 	return false;
 	}
@@ -312,7 +311,7 @@ public class GUI extends Application {
 	}
 	
 	//Insert entry into doctor table
-    public static void createDoctor(Doctor doctor) 
+    private static void createDoctor(Doctor doctor)
     {
         try{
             String query = "INSERT INTO doctor (doctorName, doctorSurname, doctorNationalId ,doctorDOB, doctorCell, "
@@ -331,7 +330,7 @@ public class GUI extends Application {
     }
     
     //Insert entry into patient table
-    public static void createPatient(Patient patient) 
+    private static void createPatient(Patient patient)
     {
         try{
             String query = "INSERT INTO patient (patientName, patientSurname, patientNationalId ,patientDOB, patientCell, "
@@ -613,7 +612,7 @@ public class GUI extends Application {
 			break;
 		}
 
-		TableView<Bill> tv_bills = new TableView<Bill>();
+		TableView<Bill> tv_bills = new TableView<>();
 		tv_bills.setItems(bills);
 		tv_bills.getColumns().addAll(date, time, patientFullName,doctorFullName,amount);
 		
