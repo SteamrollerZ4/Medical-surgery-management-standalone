@@ -148,7 +148,21 @@ public class Billing{
 	        	Bill bill = new Bill(rs.getDate("billDate"),rs.getTime("billTime"),
 	        			rs.getInt("doctorId"),rs.getInt("patientId"),rs.getInt("appointmentId"),rs.getString("billAmount"));
 	        	bill.setBillId(rs.getInt("billId"));
-	        	bills.add(bill);
+	        	//get patient's full name
+    			String _query = "SELECT patientName,patientSurname FROM patient WHERE patientId = '"+rs.getInt("patientId")+"'";
+	            Statement _stmt = MedicalSurgeryManager.getConnection().createStatement();
+	            ResultSet _rs = _stmt.executeQuery(_query);
+	            if(_rs.next()) {
+	            	bill.setPatientFullName(_rs.getString("patientName")+" "+ _rs.getString("patientSurname"));
+	            }
+    			//get doctor's full name
+	            _query = "SELECT doctorName,doctorSurname FROM doctor WHERE doctorId = '"+rs.getInt("doctorId")+"'";
+	            _stmt = MedicalSurgeryManager.getConnection().createStatement();
+	            _rs = _stmt.executeQuery(_query);
+	            if(_rs.next()) {
+	            	bill.setDoctorFullName(_rs.getString("doctorName")+" "+ _rs.getString("doctorSurname"));
+	            }
+ 	        	bills.add(bill);
 	        }
         }
         catch (SQLException e) {
@@ -223,5 +237,6 @@ public class Billing{
         	return bills.toArray();
         else
         	return null;
-    }    
+    }
 }
+

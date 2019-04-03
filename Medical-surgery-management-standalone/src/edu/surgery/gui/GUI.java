@@ -570,18 +570,13 @@ public class GUI extends Application {
 	//show bills for patient
 	public void showBills(ActionEvent event)
 	{
+		
 		//create and display scheduling window at run time
 		GridPane root = new GridPane();
 		
 		root.setVgap(20);
 		root.setHgap(20);
 		root.setAlignment(Pos.CENTER);
-		
-		ObservableList<Bill> bills = FXCollections.observableArrayList();
-		
-		//get bills from database
-		for(Object b : Billing.getBills())
-			bills.add((Bill)b);
 		
 		//Date column
 		TableColumn<Bill, java.sql.Date> date = new TableColumn<>("Date");
@@ -603,6 +598,20 @@ public class GUI extends Application {
 		TableColumn<Bill, String> amount = new TableColumn<>("Amount");
 		amount.setMinWidth(200);
 		amount .setCellValueFactory(new PropertyValueFactory<>("billAmount"));
+		
+		
+		ObservableList<Bill> bills = FXCollections.observableArrayList();		
+		
+		switch (Registration.getUserType(currentUserName)) {
+		case "Patient":
+			for(Object b : Billing.getBillsByPatientId(Registration.getPatientIdByUsername(currentUserName)))
+				bills.add((Bill)b);
+			break;
+		case "Receptionist":
+			for(Object b : Billing.getBills())
+				bills.add((Bill)b);
+			break;
+		}
 
 		TableView<Bill> tv_bills = new TableView<Bill>();
 		tv_bills.setItems(bills);

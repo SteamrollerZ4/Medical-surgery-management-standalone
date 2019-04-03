@@ -31,18 +31,23 @@
 		GridPane.columnIndex="0"
 		onAction="#displayAppointments"/>
 		
-	<Button text="Bills"
+	<Button text="Treatment records"
 		GridPane.rowIndex="3"
 		GridPane.columnIndex="0"
 		onAction="#showBills"/>
 		
-	<Button text="Receipts"
+	<Button text="Bills"
 		GridPane.rowIndex="4"
+		GridPane.columnIndex="0"
+		onAction="#showBills"/>
+		
+	<Button text="Receipts"
+		GridPane.rowIndex="5"
 		GridPane.columnIndex="0"
 		onAction="#showReceipts"/>		
 		
 	<Button text="logout"
-		GridPane.rowIndex="5"
+		GridPane.rowIndex="6"
 		GridPane.columnIndex="1"
 		onAction="#logout"/>
 </GridPane>
