@@ -64,7 +64,9 @@ public class GUI extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		window = primaryStage;
 		window.setTitle("Login");
-		window.setScene(new Scene(root,1280,720));
+		Scene scene = new Scene(root,1280,720);
+		scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+		window.setScene(scene);
 		window.show();
 	}
 	
@@ -79,7 +81,9 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("NewUser.fxml"));
 			window.setTitle("Create user");
-			window.setScene(new Scene(root,1280,720));
+			Scene scene = new Scene(root,1280,720);
+			scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+			window.setScene(scene);
 		}catch (Exception e) {
 			System.out.println(e);
 		}
@@ -149,7 +153,9 @@ public class GUI extends Application {
 			try {				
 				Parent root = FXMLLoader.load(getClass().getResource("DashboardDoctor.fxml"));
 				window.setTitle("Dashboard");
-				window.setScene(new Scene(root,1280,720));
+				Scene scene = new Scene(root,1280,720);
+				scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+				window.setScene(scene);
 			}catch (Exception e) {
 				System.out.println(e);
 			}		
@@ -160,7 +166,10 @@ public class GUI extends Application {
 				
 				Parent root = FXMLLoader.load(getClass().getResource("DashboardPatient.fxml"));
 				window.setTitle("Dashboard");
-				window.setScene(new Scene(root,1280,720));
+				Scene scene = new Scene(root,1280,720);
+				scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+				window.setScene(scene);
+				
 			}catch (Exception e) {
 				System.out.println(e);
 			}
@@ -171,7 +180,10 @@ public class GUI extends Application {
 				
 				Parent root = FXMLLoader.load(getClass().getResource("DashboardReceptionist.fxml"));
 				window.setTitle("Dashboard");
-				window.setScene(new Scene(root,1280,720));
+				Scene scene = new Scene(root,1280,720);
+				scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+				window.setScene(scene);
+				
 			}catch (Exception e) {
 				System.out.println(e);
 			}
@@ -195,7 +207,9 @@ public class GUI extends Application {
 				try {
 					Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
 					window.setTitle("Capture user details");
-					window.setScene(new Scene(root,1280,720));
+					Scene scene = new Scene(root,1280,720);
+					scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+					window.setScene(scene);
 				}catch (Exception e) {
 					System.out.println(e);
 				}
@@ -344,10 +358,12 @@ public class GUI extends Application {
 					}
 				
 				try {
-					currentUserName = tf_username.getText();
-					Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
-					window.setTitle("Capture user details");
-					window.setScene(new Scene(root,1280,720));
+						currentUserName = tf_username.getText();
+						Parent root = FXMLLoader.load(getClass().getResource("NewDocRecPat.fxml"));
+						window.setTitle("Capture user details");
+						Scene scene = new Scene(root,1280,720);
+						scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+						window.setScene(scene);
 				}catch (Exception e) {
 					System.out.println(e);
 				}		    	
@@ -437,7 +453,9 @@ public class GUI extends Application {
 		});
 		root.setConstraints(btnClose, 1, 1);
 		root.getChildren().addAll(tv_available,btnClose);
-		window.setScene(new Scene(root,1280,720));
+		Scene scene = new Scene(root,1280,720);
+		scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+		window.setScene(scene);
 	}
 	
 	//show to appointment scheduling window
@@ -518,7 +536,9 @@ public class GUI extends Application {
 			selectDashBoard(currentUserName);
 		});
 		root.getChildren().addAll(lb_username,tf_username,lb_date,dp,lb_time,cb,btnClose,btnSubmit);
-		window.setScene(new Scene(root,1280,720));
+				Scene scene = new Scene(root,1280,720);
+				scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+				window.setScene(scene);
 	}
 	
 	//Log out of system i.e. show login screen
@@ -528,7 +548,9 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			window.setTitle("Login");
-			window.setScene(new Scene(root,1280,720));			
+			Scene scene = new Scene(root,1280,720);
+			scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+			window.setScene(scene);			
 		}catch(Exception e) {
 			System.out.println(e);
 		}

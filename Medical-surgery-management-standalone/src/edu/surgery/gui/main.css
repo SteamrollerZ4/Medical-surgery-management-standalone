@@ -1,0 +1,9 @@
+.root{
+  	-fx-font-size: 12pt;
+  	-fx-background-image: url("../../../../assets/home.jpg");
+  	-fx-background-repeat: no-repeat;
+}
+
+.label{
+	-fx-text-fill: #383838;
+}
