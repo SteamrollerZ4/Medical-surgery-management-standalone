@@ -541,6 +541,11 @@ public class GUI extends Application {
 				window.setScene(scene);
 	}
 	
+	//return to default dashboard, callback method
+	public void homeDashboard(ActionEvent action) {
+		selectDashBoard(currentUserName);
+	}
+	
 	//Log out of system i.e. show login screen
 	public void logout(ActionEvent action) 
 	{
@@ -548,6 +553,34 @@ public class GUI extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			window.setTitle("Login");
+			Scene scene = new Scene(root,1280,720);
+			scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+			window.setScene(scene);			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	//show bills for patient
+	public void showBills(ActionEvent event)
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("ViewBills.fxml"));
+			window.setTitle("Bills");
+			Scene scene = new Scene(root,1280,720);
+			scene.getStylesheets().add("/edu/surgery/gui/main.css");		
+			window.setScene(scene);			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	//show receipts for patient
+	public void showReceipts(ActionEvent event)
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("ViewReceipts.fxml"));
+			window.setTitle("Receipts");
 			Scene scene = new Scene(root,1280,720);
 			scene.getStylesheets().add("/edu/surgery/gui/main.css");		
 			window.setScene(scene);			

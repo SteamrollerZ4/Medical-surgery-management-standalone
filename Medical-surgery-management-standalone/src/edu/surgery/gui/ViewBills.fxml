@@ -12,27 +12,22 @@
 		hgap="20"
 		vgap="20">
 		
-	<Label fx:id="lb_date"  
-		text="dd/mm/yyyy"
-		GridPane.columnIndex="0"
-		GridPane.rowIndex="0"
-		GridPane.halignment="RIGHT"/>
-		
 	<Label fx:id="lb_full_name"
 		text="Full name" 
 		GridPane.columnIndex="1"
 		GridPane.rowIndex="0"
 		GridPane.halignment="RIGHT"/>
 		
-	<Label fx:id="lb_bill"
-		text="$Total amount" 
-		GridPane.columnIndex="2"
+	<Label fx:id="lb_username"
+		text="Full name" 
+		GridPane.columnIndex="3"
 		GridPane.rowIndex="0"
 		GridPane.halignment="RIGHT"/>
 		
+		
 	<Button text="close"
 		GridPane.rowIndex="2"
-		GridPane.columnIndex="2"
+		GridPane.columnIndex="3"
 		GridPane.halignment="RIGHT"
 		onAction="#homeDashboard"/>
 </GridPane>
